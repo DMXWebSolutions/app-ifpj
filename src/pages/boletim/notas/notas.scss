@@ -1,0 +1,35 @@
+page-notas {
+    ion-grid {
+        .header ion-col,
+        .body   ion-col,
+        .footer ion-col {
+            border-bottom: 1px solid #222;
+            padding: 8px 8px 8px 16px !important;
+        }
+
+        .header ion-col:nth-child(2n),
+        .body   ion-col:nth-child(2n),
+        .footer ion-col:nth-child(2n) {
+            border-right: 1px solid #222;
+            text-align: center;
+        }
+
+        .header ion-col:nth-child(2n - 1),
+        .body   ion-col:nth-child(2n - 1),
+        .footer ion-col:nth-child(2n - 1) {
+            border-left: 1px solid #222;
+        }
+
+        .header ion-col {
+            border-top: 1px solid #222;
+            background-color: color($colors, secondary);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .footer ion-col {
+            background-color: color($colors, primary);
+            color: #fff;
+        }
+    }
+}

@@ -1,14 +1,25 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 
+@IonicPage({
+  name: 'home',
+  segment: 'home'
+})
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html',
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(private navCtrl: NavController) { }
 
+  public openPage(pageName) {
+    this.navCtrl.setRoot(pageName, {}, {
+      animate: true,
+      animation: 'md-transition',
+      direction: 'forward',
+      duration: 500,
+      easing: 'linear'
+    });
   }
-
 }

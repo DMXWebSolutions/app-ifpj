@@ -1,14 +1,22 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<app-header></app-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+
+<ion-content class="bg-primary">
+    <img src="assets/imgs/banner/1.jpg" alt="Baner">
+    <ion-grid padding-vertical>
+        <ion-row justify-content-center text-center>
+            <a ion-col col-4 class="home-icon" (click)="openPage('comunicados')">
+                <div class="rounded-item">
+                    <ion-icon name="ios-folder-open-outline"></ion-icon>
+                </div>
+                <p class="text-white">Comunicados</p>
+            </a>
+            <a ion-col col-4 class="home-icon" (click)="openPage('boletim')">
+                <div class="rounded-item">
+                    <ion-icon name="ios-create-outline"></ion-icon>
+                </div>
+                <p class="text-white">Boletim</p>
+            </a>
+        </ion-row>
+    </ion-grid>
 </ion-content>

@@ -1,0 +1,14 @@
+<ion-menu side="left" type="reveal" [content]="content" class="main-navigation">
+  <ion-header padding-top class="navigation-header">
+    <img class="navigation-avatar" src="assets/imgs/menu/noavatar.png" alt="Avatar">
+    <h3 text-center margin class="navigation-title">Instituto Francisca Paula</h3>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <button *ngFor="let page of pages" ion-item menuClose [class.activePage]="isActive(page.name)" (click)="openPage(page.name)">
+        <ion-icon [name]="page.icon" padding-right></ion-icon>
+        {{ page.title }}
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>

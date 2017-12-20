@@ -1,0 +1,31 @@
+<ion-content class="bg-primary">
+  <div class="logo-container">
+    <img src="assets/imgs/logo.png" alt="Ciranda do Recreio">
+  </div>
+
+  <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+    <ion-list class="form-login" no-lines>
+      <ion-item no-padding class="input-container" margin-bottom>
+        <label item-left class="icon-label">
+          <ion-icon name="person"></ion-icon>
+        </label>
+        <ion-input placeholder="E-mail" class="form-item" type="text" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-item no-padding class="input-container">
+        <label item-left class="icon-label">
+          <ion-icon name="lock"></ion-icon>
+        </label>
+        <ion-input placeholder="Senha" class="form-item" [type]="passwordVisible ? 'text' : 'password'" formControlName="senha"></ion-input>
+        <a item-right padding no-margin class="show-pass" (click)="showPassword()">
+          <ion-icon name="eye"></ion-icon>
+        </a>
+      </ion-item>
+      <ion-item text-center class="input-container">
+        <a item-right class="form-link">Esqueceu a sua senha?</a>
+      </ion-item>
+      <ion-item text-center no-padding no-margin class="input-container">
+        <button type="submit" ion-button full padding color="secondary">Entrar</button>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

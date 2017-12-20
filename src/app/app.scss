@@ -14,3 +14,31 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.bg-primary {
+    background-color: color($colors, primary);
+}
+
+.page-title {
+    margin: 0;
+    padding: 16px;
+    font-size: 24px;
+    text-align: center;
+    font-weight: normal;
+    background-color: color($colors, primary);
+    color: #fff;
+}
+
+
+app-header + ion-content {
+    margin-top: 71px;
+}
+
+.full-item {
+    padding-left: 0;
+
+    .item-inner {
+        padding-left: 16px;
+        border-bottom: 1px solid #dedede !important;
+    }
+}
