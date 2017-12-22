@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { MyApp } from './app.component';
 import { ComponentsModule } from '../components/components.module';
 import { AuthService } from '../providers/auth.service';
+import { TokenInterceptor } from '../providers/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,11 @@ import { AuthService } from '../providers/auth.service';
     {
       provide: ErrorHandler,
       useClass: IonicErrorHandler
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
     },
     AuthService
   ]

@@ -6,10 +6,6 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  public storeUser(user): void {
-    localStorage.setItem('user', user.nome);
-  }
-
   public setToken(token: string): void {
     localStorage.setItem('token', token);
   }

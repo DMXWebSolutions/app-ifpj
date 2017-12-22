@@ -9,13 +9,13 @@
         <label item-left class="icon-label">
           <ion-icon name="person"></ion-icon>
         </label>
-        <ion-input placeholder="E-mail" class="form-item" type="text" formControlName="email"></ion-input>
+        <ion-input placeholder="Matricula" class="form-item" type="text" formControlName="codalun"></ion-input>
       </ion-item>
       <ion-item no-padding class="input-container">
         <label item-left class="icon-label">
           <ion-icon name="lock"></ion-icon>
         </label>
-        <ion-input placeholder="Senha" class="form-item" [type]="passwordVisible ? 'text' : 'password'" formControlName="senha"></ion-input>
+        <ion-input placeholder="CPF do responsável" class="form-item" [type]="passwordVisible ? 'text' : 'password'" formControlName="Cpfresp"></ion-input>
         <a item-right padding no-margin class="show-pass" (click)="showPassword()">
           <ion-icon name="eye"></ion-icon>
         </a>

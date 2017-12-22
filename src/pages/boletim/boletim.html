@@ -6,17 +6,8 @@
   <ion-list>
     <ion-item-group>
       <ion-item-divider color="light" text-uppercase>Selecione a disciplina</ion-item-divider>
-      <button ion-item class="full-item" (click)="go2Avaliacoes()">
-        <ion-title>Artes</ion-title>
-      </button>
-      <button ion-item class="full-item" (click)="go2Avaliacoes()">
-        <ion-title>Português</ion-title>
-      </button>
-      <button ion-item class="full-item" (click)="go2Avaliacoes()">
-        <ion-title>Matemática</ion-title>
-      </button>
-      <button ion-item class="full-item" (click)="go2Avaliacoes()">
-        <ion-title>Química</ion-title>
+      <button ion-item class="full-item" (click)="go2Avaliacoes(disciplina.coddisc)" *ngFor="let disciplina of disciplinas">
+        <ion-title>{{ disciplina.nomedisc }}</ion-title>
       </button>
     </ion-item-group>
   </ion-list>

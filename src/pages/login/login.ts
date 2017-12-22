@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ToastController, LoadingController, IonicPage, App } from 'ionic-angular';
+import { ToastController, LoadingController, IonicPage, NavController } from 'ionic-angular';
 
 import { LoginService } from './login.service';
 import { AuthService } from '../../providers/auth.service';
@@ -19,8 +19,8 @@ export class LoginPage {
   private loading;
 
   loginForm = new FormGroup({
-    email: new FormControl(),
-    senha: new FormControl(),
+    codalun: new FormControl(),
+    Cpfresp: new FormControl(),
   });
 
   constructor(
@@ -28,7 +28,7 @@ export class LoginPage {
     private loadingCtrl: LoadingController,
     private loginService: LoginService,
     private authService: AuthService,
-    private appCtrl: App
+    private navCtrl: NavController
   ) {}
 
   public showPassword() {
@@ -61,10 +61,10 @@ export class LoginPage {
     this.loginService.login(params).subscribe(
       data => {
         this.authService.setToken(data['token']);
-        this.authService.storeUser(data['user']);
-        this.appCtrl.getRootNav().setRoot('home');
+        this.navCtrl.setRoot('home');
       },
       err => {
+        console.log(err);
         this.loading.dismiss();
         this.showToast();
       }

@@ -3,6 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 
 import { BoletimPage } from './boletim';
 import { ComponentsModule } from '../../components/components.module';
+import { AlunoService } from '../../providers/aluno.service';
 
 @NgModule({
   declarations: [
@@ -12,5 +13,8 @@ import { ComponentsModule } from '../../components/components.module';
     ComponentsModule,
     IonicPageModule.forChild(BoletimPage),
   ],
+  providers: [
+    AlunoService
+  ]
 })
 export class BoletimPageModule {}
