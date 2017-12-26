@@ -2,5 +2,7 @@
   "name": "app-ifpj",
   "app_id": "",
   "type": "ionic-angular",
-  "integrations": {}
+  "integrations": {
+    "cordova": {}
+  }
 }

@@ -5,20 +5,8 @@
   <ion-list>
     <ion-item-group>
       <ion-item-divider color="light" text-uppercase>Selecione a avaliaçao</ion-item-divider>
-      <button ion-item class="full-item" (click)="go2Notas()">
-        <ion-title>1º Trimestre</ion-title>
-      </button>
-      <button ion-item class="full-item" (click)="go2Notas()">
-        <ion-title>2º Trimestre</ion-title>
-      </button>
-      <button ion-item class="full-item" (click)="go2Notas()">
-        <ion-title>3º Trimestre</ion-title>
-      </button>
-      <button ion-item class="full-item" (click)="go2Notas()">
-        <ion-title>Recuperação I</ion-title>
-      </button>
-      <button ion-item class="full-item" (click)="go2Notas()">
-        <ion-title>Recuperação II</ion-title>
+      <button ion-item class="full-item" (click)="go2Notas(avaliacao.codverifi)" *ngFor="let avaliacao of avaliacoes">
+        <ion-title>{{ mapavaliacoes[avaliacao.codverifi] }}</ion-title>
       </button>
     </ion-item-group>
   </ion-list>
