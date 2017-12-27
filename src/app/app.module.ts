@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CacheModule } from 'ionic-cache'
 
 import { MyApp } from './app.component';
 import { ComponentsModule } from '../components/components.module';
@@ -16,6 +17,7 @@ import { TokenInterceptor } from '../providers/token.interceptor';
     ComponentsModule,
     HttpClientModule,
     BrowserModule,
+    CacheModule.forRoot(),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

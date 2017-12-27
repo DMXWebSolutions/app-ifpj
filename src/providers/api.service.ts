@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { CacheService } from 'ionic-cache';
 
 import { environment } from '../environments/environment';
 import { AuthService } from './auth.service';
@@ -10,6 +11,7 @@ export abstract class ApiService {
 
     constructor(
         @Inject(HttpClient) protected http: HttpClient,
-        @Inject(AuthService) protected authService: AuthService
+        @Inject(CacheService) protected cache: CacheService,
+        @Inject(AuthService) protected authService: AuthService,
     ) {}
 }

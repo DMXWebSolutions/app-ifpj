@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavParams, LoadingController } from 'ionic-angular';
 
 import { AlunoService } from '../../../providers/aluno.service';
+import { DisciplinaService } from '../../../providers/disciplina.service';
 
 @IonicPage({
   name: 'notas',
@@ -14,12 +15,14 @@ import { AlunoService } from '../../../providers/aluno.service';
 export class NotasPage {
 
   private loading: any;
+  public disciplina: any;
   public notas: any;
 
   constructor(
     private params: NavParams,
     private loadingCtrl: LoadingController,
-    private alunoService: AlunoService
+    private disciplinaService: DisciplinaService,
+    private alunoService: AlunoService,
   ) {
     this.loading = this.loadingCtrl.create({
       content: 'Carregando notas...',
@@ -33,6 +36,11 @@ export class NotasPage {
       coddisc: this.params.get('coddisc'),
       codverifi: this.params.get('codverifi')
     };
+
+    this.disciplinaService.read(params.coddisc).subscribe(
+      disciplina => this.disciplina = disciplina,
+      err => console.log(err)
+    );
 
     this.alunoService.getNotas(params).subscribe(
       notas => this.notas = notas,

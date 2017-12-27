@@ -7,14 +7,26 @@ export class AlunoService extends ApiService {
     protected resourceName: string = '/alunos';
 
     public getDisciplinas(params: any = {}) {
-        return this.http.get(`${this.apiRoot}${this.resourceName}/disciplinas`, params);
+        let url = `${this.apiRoot}${this.resourceName}/disciplinas`;
+        let cacheKey = url;
+        let request = this.http.get(url, params);
+
+        return this.cache.loadFromObservable(cacheKey, request);
     }
 
     public getAvaliacoes(params: any = {}) {
-        return this.http.get(`${this.apiRoot}${this.resourceName}/disciplina/${params.coddisc}/avalicoes`);
+        let url = `${this.apiRoot}${this.resourceName}/disciplina/${params.coddisc}/avalicoes`;
+        let cacheKey = url;
+        let request = this.http.get(url, params);
+
+        return this.cache.loadFromObservable(cacheKey, request);
     }
 
     public getNotas(params) {
-        return this.http.get(`${this.apiRoot}${this.resourceName}/disciplina/${params.coddisc}/avalicao/${params.codverifi}/notas`);
+        let url = `${this.apiRoot}${this.resourceName}/disciplina/${params.coddisc}/avalicao/${params.codverifi}/notas`;
+        let cacheKey = url;
+        let request = this.http.get(url);
+
+        return this.cache.loadFromObservable(cacheKey, request);
     }
 }

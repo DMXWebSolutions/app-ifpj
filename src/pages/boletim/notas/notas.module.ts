@@ -4,6 +4,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { NotasPage } from './notas';
 import { ComponentsModule } from '../../../components/components.module';
 import { AlunoService } from '../../../providers/aluno.service';
+import { DisciplinaService } from '../../../providers/disciplina.service';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { AlunoService } from '../../../providers/aluno.service';
     IonicPageModule.forChild(NotasPage),
   ],
   providers: [
-    AlunoService
+    AlunoService,
+    DisciplinaService
   ]
 })
 export class NotasPageModule {}
