@@ -17,6 +17,7 @@ export class LoginPage {
 
   private passwordVisible: boolean = false;
   private loading;
+  private toast;
 
   loginForm = new FormGroup({
     codalun: new FormControl(),
@@ -29,14 +30,8 @@ export class LoginPage {
     private loginService: LoginService,
     private authService: AuthService,
     private navCtrl: NavController
-  ) {}
-
-  public showPassword() {
-    this.passwordVisible = !this.passwordVisible;
-  }
-
-  private showToast() {
-    let toast = this.toastCtrl.create({
+  ) {
+    this.toast = this.toastCtrl.create({
       message: 'Usuário ou senha incorretos.',
       dismissOnPageChange: true,
       showCloseButton: true,
@@ -44,20 +39,19 @@ export class LoginPage {
       cssClass: 'warning',
       duration: 10000,
     });
-    toast.present();
-  }
 
-  private showLoading() {
     this.loading = this.loadingCtrl.create({
       content: 'Entrando...',
       dismissOnPageChange: true
     });
+  }
 
-    this.loading.present();
+  public showPassword() {
+    this.passwordVisible = !this.passwordVisible;
   }
 
   public login(params) {
-    this.showLoading();
+    this.loading.present();
     this.loginService.login(params).subscribe(
       data => {
         this.authService.setToken(data['token']);
@@ -66,7 +60,7 @@ export class LoginPage {
       err => {
         console.log(err);
         this.loading.dismiss();
-        this.showToast();
+        this.toast.present();
       }
     );
   }

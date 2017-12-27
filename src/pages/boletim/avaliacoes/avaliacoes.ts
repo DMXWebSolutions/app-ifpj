@@ -29,10 +29,14 @@ export class AvaliacoesPage {
       '10': 'Recuperação I',
       '11': 'Recuperação II',
     };
+
+    this.loading = this.loadingCtrl.create({
+      content: 'Carregando...',
+    });
   }
 
   ionViewDidLoad(): void {
-    this.showLoading();
+    this.loading.present();
 
     let params = {
       coddisc: this.params.get('coddisc')
@@ -43,15 +47,6 @@ export class AvaliacoesPage {
       err => console.log(err),
       () => this.loading.dismiss()
     );
-  }
-
-  private showLoading(): void {
-    this.loading = this.loadingCtrl.create({
-      content: 'Carregando...',
-      dismissOnPageChange: true
-    });
-
-    this.loading.present();
   }
 
   public go2Notas(codverifi): void {

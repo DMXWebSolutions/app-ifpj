@@ -20,10 +20,14 @@ export class NotasPage {
     private params: NavParams,
     private loadingCtrl: LoadingController,
     private alunoService: AlunoService
-  ) {}
+  ) {
+    this.loading = this.loadingCtrl.create({
+      content: 'Carregando notas...',
+    });
+  }
 
   ionViewDidLoad() {
-    this.showLoading();
+    this.loading.present();
 
     let params = {
       coddisc: this.params.get('coddisc'),
@@ -35,14 +39,5 @@ export class NotasPage {
       err => console.log(err),
       () => this.loading.dismiss()
     );
-  }
-
-  private showLoading() {
-    this.loading = this.loadingCtrl.create({
-      content: 'Carregando notas...',
-      dismissOnPageChange: true
-    });
-
-    this.loading.present();
   }
 }

@@ -20,25 +20,20 @@ export class BoletimPage {
     private navCtrl: NavController,
     private loadingCtrl: LoadingController,
     private alunoService: AlunoService
-  ) {}
+  ) {
+    this.loading = this.loadingCtrl.create({
+      content: 'Carregando disciplinas...'
+    });
+  }
 
   ionViewDidLoad() {
-    this.showLoading();
+    this.loading.present();
 
     this.alunoService.getDisciplinas().subscribe(
       disciplinas => this.disciplinas = disciplinas,
       err => console.log(err),
       () => this.loading.dismiss()
     );
-  }
-
-  private showLoading() {
-    this.loading = this.loadingCtrl.create({
-      content: 'Carregando disciplinas...',
-      dismissOnPageChange: true
-    });
-
-    this.loading.present();
   }
 
   public go2Avaliacoes(coddisc: string) {
