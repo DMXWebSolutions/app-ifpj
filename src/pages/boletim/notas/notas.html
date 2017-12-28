@@ -2,11 +2,11 @@
 
 
 <ion-content>
-  <h3 class="page-title">Boletim</h3>
+  <h3 class="page-title">Boletim - {{ getAvaliacao() }}</h3>
 
   <ion-grid no-padding *ngFor="let nota of notas">
-    <ion-row class="header">
-      <ion-col col-6>ED. Física</ion-col>
+    <ion-row class="header" *ngFor="let d of disciplina">
+      <ion-col col-6>{{ d.nomedisc }}</ion-col>
       <ion-col col-6>Notas</ion-col>
     </ion-row>
     <ion-row class="body">        

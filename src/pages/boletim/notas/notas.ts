@@ -3,6 +3,7 @@ import { IonicPage, NavParams, LoadingController } from 'ionic-angular';
 
 import { AlunoService } from '../../../providers/aluno.service';
 import { DisciplinaService } from '../../../providers/disciplina.service';
+import { AvaliacaoService } from '../../../providers/avaliacao.service';
 
 @IonicPage({
   name: 'notas',
@@ -23,6 +24,7 @@ export class NotasPage {
     private loadingCtrl: LoadingController,
     private disciplinaService: DisciplinaService,
     private alunoService: AlunoService,
+    private avaliacaoService: AvaliacaoService,
   ) {
     this.loading = this.loadingCtrl.create({
       content: 'Carregando notas...',
@@ -47,5 +49,9 @@ export class NotasPage {
       err => console.log(err),
       () => this.loading.dismiss()
     );
+  }
+
+  public getAvaliacao(): string {
+    return this.avaliacaoService.getName(this.params.get('codverifi'));
   }
 }

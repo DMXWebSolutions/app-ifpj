@@ -5,6 +5,7 @@ import { NotasPage } from './notas';
 import { ComponentsModule } from '../../../components/components.module';
 import { AlunoService } from '../../../providers/aluno.service';
 import { DisciplinaService } from '../../../providers/disciplina.service';
+import { AvaliacaoService } from '../../../providers/avaliacao.service';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { DisciplinaService } from '../../../providers/disciplina.service';
   ],
   providers: [
     AlunoService,
-    DisciplinaService
+    DisciplinaService,
+    AvaliacaoService,
   ]
 })
 export class NotasPageModule {}

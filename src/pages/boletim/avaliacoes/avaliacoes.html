@@ -6,7 +6,7 @@
     <ion-item-group>
       <ion-item-divider color="light" text-uppercase>Selecione a avaliaçao</ion-item-divider>
       <button ion-item class="full-item" (click)="go2Notas(avaliacao.codverifi)" *ngFor="let avaliacao of avaliacoes">
-        <ion-title>{{ mapavaliacoes[avaliacao.codverifi] }}</ion-title>
+        <ion-title>{{ getName(avaliacao.codverifi) }}</ion-title>
       </button>
     </ion-item-group>
   </ion-list>

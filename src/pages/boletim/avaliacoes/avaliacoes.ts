@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 
 import { AlunoService } from '../../../providers/aluno.service';
+import { AvaliacaoService } from '../../../providers/avaliacao.service';
 
 @IonicPage({
   name: 'avaliacoes',
@@ -20,16 +21,9 @@ export class AvaliacoesPage {
     private navCtrl: NavController,
     private params: NavParams,
     private loadingCtrl: LoadingController,
-    private alunoService: AlunoService
+    private alunoService: AlunoService,
+    private avaliacaoService: AvaliacaoService
   ) { 
-    this.mapavaliacoes = {
-      '01': '1º Trimestre',
-      '02': '2º Trimestre',
-      '03': '3º Trimestre',
-      '10': 'Recuperação I',
-      '11': 'Recuperação II',
-    };
-
     this.loading = this.loadingCtrl.create({
       content: 'Carregando...',
     });
@@ -54,5 +48,9 @@ export class AvaliacoesPage {
       coddisc: this.params.get('coddisc'),
       codverifi: codverifi
     });
+  }
+
+  public getName(codverifi: string) {
+    return this.avaliacaoService.getName(codverifi);
   }
 }
