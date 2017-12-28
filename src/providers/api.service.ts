@@ -8,6 +8,7 @@ import { AuthService } from './auth.service';
 export abstract class ApiService {
     protected apiRoot: string = environment.API_URL;
     protected resourceName: string;
+    protected cacheTtl: number = 60 * 60 * 24 * 30 * 3;
 
     constructor(
         @Inject(HttpClient) protected http: HttpClient,

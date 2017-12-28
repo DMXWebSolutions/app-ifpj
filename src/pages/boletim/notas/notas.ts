@@ -54,4 +54,17 @@ export class NotasPage {
   public getAvaliacao(): string {
     return this.avaliacaoService.getName(this.params.get('codverifi'));
   }
+
+  public refreshContent(refresher) {
+    let params = {
+      coddisc: this.params.get('coddisc'),
+      codverifi: this.params.get('codverifi')
+    };
+
+    this.alunoService.getNotas(params, true).subscribe(
+      notas => this.notas = notas,
+      err => console.log(err),
+      () => refresher.complete()
+    );
+  }
 }

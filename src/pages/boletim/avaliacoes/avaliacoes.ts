@@ -37,7 +37,7 @@ export class AvaliacoesPage {
     }
 
     this.alunoService.getAvaliacoes(params).subscribe(
-      avaliacoes =>this.avaliacoes = avaliacoes,
+      avaliacoes => this.avaliacoes = avaliacoes,
       err => console.log(err),
       () => this.loading.dismiss()
     );
@@ -52,5 +52,17 @@ export class AvaliacoesPage {
 
   public getName(codverifi: string) {
     return this.avaliacaoService.getName(codverifi);
+  }
+
+  public refreshContent(refresher) {
+    let params = {
+      coddisc: this.params.get('coddisc')
+    }
+
+    this.alunoService.getAvaliacoes(params, true).subscribe(
+      avaliacoes => this.avaliacoes = avaliacoes,
+      err => console.log(err),
+      () => refresher.complete()
+    );
   }
 }

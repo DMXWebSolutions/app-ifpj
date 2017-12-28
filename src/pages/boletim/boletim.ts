@@ -36,6 +36,14 @@ export class BoletimPage {
     );
   }
 
+  public refreshContent(refresher) {
+    this.alunoService.getDisciplinas({}, true).subscribe(
+      disciplinas => this.disciplinas = disciplinas,
+      err => console.log(err),
+      () => refresher.complete()
+    );
+  }
+
   public go2Avaliacoes(coddisc: string) {
     this.navCtrl.push('avaliacoes', {
       coddisc: coddisc
