@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { CacheModule } from 'ionic-cache'
+import { CacheModule } from 'ionic-cache';
+import { OneSignal } from '@ionic-native/onesignal';
 
 import { MyApp } from './app.component';
 import { ComponentsModule } from '../components/components.module';
@@ -34,6 +35,7 @@ import { TokenInterceptor } from '../providers/token.interceptor';
       useClass: TokenInterceptor,
       multi: true
     },
+    OneSignal,
     AuthService
   ]
 })
