@@ -36,10 +36,19 @@ main-navigation {
     }
 
     ion-icon {
+        vertical-align: -15%;
         font-size: 24px;
     }
 
     .activePage {
         background: color($colors, light);
+    }
+
+    .btn-logout {
+        position: absolute;
+        bottom: 0;
+        left:0;
+        background-color: color($colors, danger);
+        color: #fff;
     }
 }
