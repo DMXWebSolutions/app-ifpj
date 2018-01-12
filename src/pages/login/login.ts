@@ -63,7 +63,7 @@ export class LoginPage {
         this.initializeOneSignal();
       },
       err => {
-        console.log(err);
+        alert(err.status);
         this.loading.dismiss();
         this.toast.present();
       }
@@ -85,13 +85,8 @@ export class LoginPage {
       onesignal => {
         this.deviceService.add({
           'onesignal_id': onesignal.userId,
-          'aluno_id': '150192',
           'active': true
-        }).subscribe(
-          data => alert(data),
-          err => alert(err.status + err.error),
-          () => alert('complete')
-        );
+        })
       }
     );
 
