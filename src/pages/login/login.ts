@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ToastController, LoadingController, IonicPage, NavController } from 'ionic-angular';
 import { OneSignal } from '@ionic-native/onesignal';
 
-import { LoginService } from './login.service';
+import { LoginService } from '../../providers/login.service';
 import { AuthService } from '../../providers/auth.service';
 import { DeviceService } from '../../providers/device.service';
 
