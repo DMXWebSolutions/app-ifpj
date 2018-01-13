@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
@@ -8,11 +8,12 @@ import { environment } from '../environments/environment';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 	constructor(
-		private authService: AuthService,
+		private injector: Injector,
 	) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-		const token: 		 string = this.authService.getToken();
+	  	const auth: 	AuthService = this.injector.get(AuthService);
+		const token: 		 string = auth.getToken();
 		const requestDomain: string = request.url.split('/')[2];
 		const ApiDomain: 	 string = environment.API_URL.split('/')[2];
 

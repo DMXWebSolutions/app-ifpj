@@ -4,8 +4,8 @@ import { IonicPageModule } from 'ionic-angular';
 
 import { ComponentsModule } from '../../components/components.module';
 import { LoginPage } from './login';
-import { LoginService } from '../../providers/login.service';
 import { DeviceService } from '../../providers/device.service';
+import { AuthService } from '../../providers/auth.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,7 @@ import { DeviceService } from '../../providers/device.service';
     IonicPageModule.forChild(LoginPage),
   ],
   providers: [
-    LoginService,
+    AuthService,
     DeviceService
   ],
 })

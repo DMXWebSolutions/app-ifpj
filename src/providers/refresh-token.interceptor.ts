@@ -16,17 +16,17 @@ import { environment } from '../environments/environment';
 export class RefreshTokenInterceptor implements HttpInterceptor {
     constructor(
         private injector: Injector,
-        private authService: AuthService,
     ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).catch((errorResponse: HttpErrorResponse) => {
         if(errorResponse.status === 401) {
             const http = this.injector.get(HttpClient);
+            const auth = this.injector.get(AuthService);
 
             return http.post<any>(`${environment.API_URL}/refresh`, {})
             .flatMap(data => {
-                this.authService.setToken(data.token);
+                auth.setToken(data.token);
 
                 const newRequest = request.clone({
                     setHeaders: {
