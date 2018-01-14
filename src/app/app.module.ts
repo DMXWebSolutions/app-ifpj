@@ -9,6 +9,7 @@ import { MyApp } from './app.component';
 import { ComponentsModule } from '../components/components.module';
 import { AuthService } from '../providers/auth.service';
 import { TokenInterceptor } from '../providers/token.interceptor';
+import { DeviceService } from '../providers/device.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { TokenInterceptor } from '../providers/token.interceptor';
       multi: true
     },
     OneSignal,
-    AuthService
+    AuthService,
+    DeviceService
   ]
 })
 export class AppModule {}

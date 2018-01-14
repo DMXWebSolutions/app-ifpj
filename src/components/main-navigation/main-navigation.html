@@ -9,7 +9,7 @@
         <ion-icon [name]="page.icon" padding-right></ion-icon>
         {{ page.title }}
       </button>
-      <button ion-item menuClose class="btn-logout">
+      <button ion-item menuClose class="btn-logout" (click)="logout()">
         <ion-icon name="ios-exit-outline" padding-right></ion-icon>
         Logout
       </button>

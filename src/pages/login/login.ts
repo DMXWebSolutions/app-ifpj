@@ -41,11 +41,6 @@ export class LoginPage {
       cssClass: 'warning',
       duration: 10000,
     });
-
-    this.loading = this.loadingCtrl.create({
-      content: 'Entrando...',
-      dismissOnPageChange: true
-    });
   }
 
   public showPassword() {
@@ -53,11 +48,16 @@ export class LoginPage {
   }
 
   public login(params) {
+    this.loading = this.loadingCtrl.create({
+      content: 'Entrando...',
+      dismissOnPageChange: true
+    });
+
     this.loading.present();
     this.authService.login(params).subscribe(
       () => {
         this.navCtrl.setRoot('home');
-        this.initializeOneSignal();
+        this.storeOneSignalId();
       },
       err => {
         alert(err.status);
@@ -67,27 +67,19 @@ export class LoginPage {
     );
   }
 
-  private initializeOneSignal() {
-    this.oneSignal.startInit('17d64313-0cfe-4add-a369-42445e21368c', '1031988098562');
-    
-    this.oneSignal.handleNotificationReceived().subscribe(() => {
-      // do something when notification is received
-    });
-
-    this.oneSignal.handleNotificationOpened().subscribe(() => {
-      // do something when a notification is opened
-    });
-
+  private storeOneSignalId() {
     this.oneSignal.getIds().then(
       onesignal => {
         this.deviceService.add({
           'onesignal_id': onesignal.userId,
           'active': true
-        })
+        }).subscribe(
+          data => true,
+          err => alert('Erro: ' + err.status),
+          () => true
+        )
       }
     );
-
-    this.oneSignal.endInit();
   }
 
 }

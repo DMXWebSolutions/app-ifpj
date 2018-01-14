@@ -1,18 +1,24 @@
-import { Inject } from '@angular/core';
+import { Injector, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CacheService } from 'ionic-cache';
 
 import { environment } from '../environments/environment';
 
+@Injectable()
 export abstract class ApiService {
+    protected http: HttpClient;
+    protected cache: CacheService;
+
     protected apiRoot: string = environment.API_URL;
     protected resourceName: string;
     protected cacheTtl: number = 60 * 60 * 24 * 30 * 3;
 
     constructor(
-        @Inject(HttpClient) protected http: HttpClient,
-        @Inject(CacheService) protected cache: CacheService,
-    ) {}
+        protected injector: Injector
+    ) {
+        this.http = this.injector.get(HttpClient);
+        this.cache = this.injector.get(CacheService);
+    }
 
     public add(params: any = {}) {
         return this.http.post(`${this.apiRoot}${this.resourceName}`, params);
