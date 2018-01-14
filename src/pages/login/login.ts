@@ -32,16 +32,7 @@ export class LoginPage {
     private deviceService: DeviceService,
     private authService: AuthService,
     private navCtrl: NavController
-  ) {
-    this.toast = this.toastCtrl.create({
-      message: 'Usuário ou senha incorretos.',
-      dismissOnPageChange: true,
-      showCloseButton: true,
-      closeButtonText: 'Ok',
-      cssClass: 'warning',
-      duration: 10000,
-    });
-  }
+  ) {}
 
   public showPassword() {
     this.passwordVisible = !this.passwordVisible;
@@ -60,8 +51,15 @@ export class LoginPage {
         this.storeOneSignalId();
       },
       err => {
-        alert(err.status);
         this.loading.dismiss();
+        this.toast = this.toastCtrl.create({
+          message: 'Usuário ou senha incorretos.',
+          dismissOnPageChange: true,
+          showCloseButton: true,
+          closeButtonText: 'Ok',
+          cssClass: 'warning',
+          duration: 10000,
+        });
         this.toast.present();
       }
     );

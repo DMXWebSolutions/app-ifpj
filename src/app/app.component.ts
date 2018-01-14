@@ -13,7 +13,9 @@ export class MyApp {
     private auth: AuthService,
     private cache: CacheService,
     private oneSignal: OneSignal,
-  ) {
+  ) {}
+
+  ionViewDidEnter() {
     this.initializeCache();
     this.initializeOneSignal();
   }

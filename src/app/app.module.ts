@@ -38,7 +38,7 @@ import { DeviceService } from '../providers/device.service';
     },
     OneSignal,
     AuthService,
-    DeviceService
+    DeviceService,
   ]
 })
 export class AppModule {}
