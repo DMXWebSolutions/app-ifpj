@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
 import { CacheModule } from 'ionic-cache';
 import { OneSignal } from '@ionic-native/onesignal';
 
@@ -39,6 +41,8 @@ import { DeviceService } from '../providers/device.service';
     OneSignal,
     AuthService,
     DeviceService,
+    SplashScreen,
+    StatusBar
   ]
 })
 export class AppModule {}

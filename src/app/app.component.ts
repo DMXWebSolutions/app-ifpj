@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { CacheService } from 'ionic-cache';
+import { Platform } from 'ionic-angular';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
 
 import { AuthService } from '../providers/auth.service';
 import { OneSignal } from '@ionic-native/onesignal';
@@ -13,11 +16,18 @@ export class MyApp {
     private auth: AuthService,
     private cache: CacheService,
     private oneSignal: OneSignal,
-  ) {}
+    platform: Platform,
+    statusBar: StatusBar,
+    splashScreen: SplashScreen
+  ) {
+    platform.ready().then(() => {
+      this.initializeCache();
+      this.initializeOneSignal();
 
-  ionViewDidEnter() {
-    this.initializeCache();
-    this.initializeOneSignal();
+
+      statusBar.styleDefault();
+      splashScreen.hide();
+    });
   }
 
   private initializeCache() {
