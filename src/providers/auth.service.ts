@@ -5,7 +5,6 @@ import { OneSignal } from '@ionic-native/onesignal';
 import { ApiService } from './api.service';
 import { DeviceService } from './device.service';
 import { Observable } from 'rxjs/Observable';
-import { fromPromise } from 'rxjs/observable/fromPromise';
 
 @Injectable()
 export class AuthService extends ApiService {

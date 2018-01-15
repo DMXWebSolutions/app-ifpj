@@ -27,9 +27,8 @@ export class MainNavigationComponent {
       { icon: 'ios-folder-open-outline',   title: 'Comunicados',name: 'comunicados' },
     ];
 
-    events.subscribe('user:logedin', (user, time) => {
+    this.events.subscribe('user:logedin', (user, time) => {
       this.username = user.nome;
-      alert('Event fired!');
     });
    }
 
