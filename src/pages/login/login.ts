@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ToastController, LoadingController, IonicPage, NavController } from 'ionic-angular';
+import { ToastController, LoadingController, IonicPage, NavController, Events } from 'ionic-angular';
 import { OneSignal } from '@ionic-native/onesignal';
 
 import { AuthService } from '../../providers/auth.service';
@@ -33,7 +33,8 @@ export class LoginPage {
     private deviceService: DeviceService,
     private authService: AuthService,
     private navCtrl: NavController,
-    private menu: MenuController
+    private menu: MenuController,
+    private events: Events
   ) {
     this.menu.enable(false, 'main-navigation');
   }
@@ -50,7 +51,8 @@ export class LoginPage {
 
     this.loading.present();
     this.authService.login(params).subscribe(
-      () => {
+      user => {
+        this.events.publish('user:logedin', user, Date.now());
         this.navCtrl.setRoot('home');
         this.menu.enable(true, 'main-navigation');
         this.storeOneSignalId();

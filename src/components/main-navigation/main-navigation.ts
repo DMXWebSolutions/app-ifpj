@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { App, LoadingController } from 'ionic-angular';
+import { App, LoadingController, Events } from 'ionic-angular';
 
 import { AuthService } from '../../providers/auth.service';
 
@@ -13,17 +13,24 @@ export class MainNavigationComponent {
   private loading;
   public pages: Array<{ icon: string, title: string, name: string }>
   public activePage: string = 'home';
+  public username: string = 'Instituto Francisca Paula';
 
   constructor(
     private appCtrl: App,
     private loadingCtrl: LoadingController,
     private auth: AuthService,
+    private events: Events,
   ) {
     this.pages = [
       { icon: 'ios-home-outline',          title: 'Home',       name: 'home' },
       { icon: 'ios-create-outline',        title: 'Boletim',    name: 'boletim' },
       { icon: 'ios-folder-open-outline',   title: 'Comunicados',name: 'comunicados' },
     ];
+
+    events.subscribe('user:logedin', (user, time) => {
+      this.username = user.nome;
+      alert('Event fired!');
+    });
    }
 
    public openPage(pageName: string) {

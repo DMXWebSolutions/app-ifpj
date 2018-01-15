@@ -35,8 +35,14 @@ export class AuthService extends ApiService {
     return tokenNotExpired();
   }
 
-  public login(params) {
-    return this.http.post(this.apiRoot + this.resourceName, params).map(data => this.setToken(data['token']));
+  public login(params): Observable<any> {
+    return this.http.post(this.apiRoot + this.resourceName, params)
+      .map(
+        data => {
+          this.setToken(data['token']);
+          return data['user'];
+        }
+      );
   }
 
   public logout(): Observable<any> {
