@@ -5,6 +5,7 @@ import { OneSignal } from '@ionic-native/onesignal';
 
 import { AuthService } from '../../providers/auth.service';
 import { DeviceService } from '../../providers/device.service';
+import { MenuController } from 'ionic-angular';
 
 @IonicPage({
   name: 'login',
@@ -31,8 +32,11 @@ export class LoginPage {
     private loadingCtrl: LoadingController,
     private deviceService: DeviceService,
     private authService: AuthService,
-    private navCtrl: NavController
-  ) {}
+    private navCtrl: NavController,
+    private menu: MenuController
+  ) {
+    this.menu.enable(false, 'main-navigation');
+  }
 
   public showPassword() {
     this.passwordVisible = !this.passwordVisible;
@@ -48,6 +52,7 @@ export class LoginPage {
     this.authService.login(params).subscribe(
       () => {
         this.navCtrl.setRoot('home');
+        this.menu.enable(true, 'main-navigation');
         this.storeOneSignalId();
       },
       err => {

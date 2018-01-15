@@ -52,4 +52,8 @@ export class AuthService extends ApiService {
         return data;
       });
   }
+
+  public me(): any {
+    return this.http.get(`${this.apiRoot}/me`);
+  }
 }
