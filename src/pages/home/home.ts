@@ -14,12 +14,6 @@ export class HomePage {
   constructor(private navCtrl: NavController) { }
 
   public openPage(pageName) {
-    this.navCtrl.setRoot(pageName, {}, {
-      animate: true,
-      animation: 'md-transition',
-      direction: 'forward',
-      duration: 500,
-      easing: 'linear'
-    });
+    this.navCtrl.push(pageName);
   }
 }
