@@ -27,6 +27,7 @@ main-navigation {
             display: inline-block;
             margin-left: auto;
             margin-right: auto;
+            overflow: hidden;
             border: 2px solid color($colors, line);
         }
     }

@@ -6,6 +6,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { CacheModule } from 'ionic-cache';
 import { OneSignal } from '@ionic-native/onesignal';
+import { File} from '@ionic-native/file';
+import { FileTransfer } from '@ionic-native/file-transfer';
+import { FilePath } from '@ionic-native/file-path';
+import { Camera } from '@ionic-native/camera';
 
 import { MyApp } from './app.component';
 import { ComponentsModule } from '../components/components.module';
@@ -42,7 +46,11 @@ import { DeviceService } from '../providers/device.service';
     AuthService,
     DeviceService,
     SplashScreen,
-    StatusBar
+    StatusBar,
+    File,
+    FileTransfer,
+    FilePath,
+    Camera
   ]
 })
 export class AppModule {}
