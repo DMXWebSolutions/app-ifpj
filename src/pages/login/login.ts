@@ -37,6 +37,7 @@ export class LoginPage {
     private events: Events
   ) {
     this.menu.enable(false, 'main-navigation');
+    this.menu.enable(false, 'notifications');
   }
 
   public showPassword() {
@@ -55,6 +56,7 @@ export class LoginPage {
         this.events.publish('user:logedin', user, Date.now());
         this.navCtrl.setRoot('home');
         this.menu.enable(true, 'main-navigation');
+        this.menu.enable(true, 'notifications');
         this.storeOneSignalId();
       },
       err => {

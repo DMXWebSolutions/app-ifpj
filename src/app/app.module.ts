@@ -10,6 +10,7 @@ import { File} from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
+import { MomentModule } from 'angular2-moment';
 
 import { MyApp } from './app.component';
 import { ComponentsModule } from '../components/components.module';
@@ -25,6 +26,7 @@ import { DeviceService } from '../providers/device.service';
     ComponentsModule,
     HttpClientModule,
     BrowserModule,
+    MomentModule,
     CacheModule.forRoot(),
     IonicModule.forRoot(MyApp)
   ],

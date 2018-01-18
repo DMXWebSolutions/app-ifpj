@@ -9,7 +9,7 @@ import { AuthService } from '../../providers/auth.service';
   templateUrl: 'main-navigation.html'
 })
 export class MainNavigationComponent {
-  @Input('content') content: any
+  @Input('content') content: any;
 
   private loading;
   public pages: Array<{ icon: string, title: string, name: string }>

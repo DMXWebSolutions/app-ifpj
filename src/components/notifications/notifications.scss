@@ -1,0 +1,13 @@
+notifications {
+    .show-all {
+        border-bottom: 1px solid #dedede;
+    }
+
+    .notification {
+        background-color: color($colors, light);;
+
+        &.new {
+            background-color: #fff;
+        }
+    }
+}

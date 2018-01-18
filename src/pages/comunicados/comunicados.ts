@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage({
   name: 'comunicados',
-  segment: 'comunicados'
+  segment: 'comunicados/:id'
 })
 @Component({
   selector: 'page-comunicados',
@@ -11,5 +11,13 @@ import { IonicPage } from 'ionic-angular';
 })
 export class ComunicadosPage {
 
-  constructor() { }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams
+  ) {}
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ComunicadosPage');
+  }
+
 }

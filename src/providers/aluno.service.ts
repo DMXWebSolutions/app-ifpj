@@ -42,4 +42,8 @@ export class AlunoService extends ApiService {
         else
             return this.cache.loadFromDelayedObservable(cacheKey, request, groupKey, this.cacheTtl, 'all');
     }
+
+    public getComunicados() {
+        return this.http.get(`${this.apiRoot}${this.resourceName}/comunicados`);
+    }
 }
