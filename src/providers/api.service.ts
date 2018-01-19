@@ -20,23 +20,23 @@ export abstract class ApiService {
         this.cache = this.injector.get(CacheService);
     }
 
-    public add(params: any = {}) {
+    public add(params: any = {}): any {
         return this.http.post(`${this.apiRoot}${this.resourceName}`, params);
     }
 
-    public all(params: any = {}) {
+    public all(params: any = {}): any {
         return this.http.get(`${this.apiRoot}${this.resourceName}`, params);
     }
 
-    public get(params: any = {}) {
-        return this.http.get(`${this.apiRoot}${this.resourceName}/${params.id}`, params);
+    public get(params: any = {}): any {
+        return this.http.get(`${this.apiRoot}${this.resourceName}/${params.id}`);
     }
 
-    public update(params: any = {}) {
+    public update(params: any = {}): any {
         return this.http.put(`${this.apiRoot}${this.resourceName}/${params.id}`, params);
     }
 
-    public delete(params: any = {}) {
+    public delete(params: any = {}): any {
         return this.http.delete(`${this.apiRoot}${this.resourceName}/${params.id}`, params);
     }
 }

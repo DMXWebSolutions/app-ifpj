@@ -40,7 +40,7 @@ export class MainNavigationComponent {
    }
 
    public openPage(pageName: string) {
-    this.appCtrl.getRootNavs()[0].setRoot(pageName);
+    this.appCtrl.getRootNavs()[0].push(pageName);
     this.activePage = pageName;
    }
 
@@ -58,7 +58,7 @@ export class MainNavigationComponent {
 
     this.auth.logout().subscribe(
       data => {
-        this.appCtrl.getRootNavs()[0].setRoot('login');
+        this.appCtrl.getRootNavs()[0].push('login');
       },
       err => alert('Erro: ' + err.status),
     );

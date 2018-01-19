@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { Events } from 'ionic-angular';
+import { Events, App } from 'ionic-angular';
 
 import { AlunoService } from '../../providers/aluno.service';
 import { AuthService } from '../../providers/auth.service';
+import { NotificacaoService } from '../../providers/notificacao.service';
 
 @Component({
   selector: 'notifications',
@@ -17,8 +18,10 @@ export class NotificationsComponent {
 
   constructor(
     private alunoService: AlunoService,
+    private notificacaoService: NotificacaoService,
     private auth: AuthService,
-    private events: Events
+    private events: Events,
+    private app: App
   ) {
     if(this.auth.authenticated()) {
       this.getAlunos();
@@ -37,5 +40,13 @@ export class NotificationsComponent {
       notificacoes => this.notificacoes = notificacoes,
       err => alert('Erro: ' + err.status)
     );
+   }
+
+   public showDetails(notificacao) {
+      notificacao.lida = true;
+
+      this.app.getRootNavs()[0].push('notification-detail', {
+        id: notificacao.id
+      });
    }
 }

@@ -3,6 +3,7 @@ import { IonicModule } from 'ionic-angular/module';
 
 
 import { AlunoService } from '../providers/aluno.service';
+import { NotificacaoService } from '../providers/notificacao.service';
 import { MainNavigationComponent } from './main-navigation/main-navigation';
 import { NotificationsComponent } from './notifications/notifications';
 import { AppHeaderComponent } from './app-header/app-header';
@@ -27,7 +28,8 @@ moment.locale('pt-br');
     	AppHeaderComponent
 	],
 	providers: [
-		AlunoService
+		AlunoService,
+		NotificacaoService
 	]
 })
 export class ComponentsModule {}

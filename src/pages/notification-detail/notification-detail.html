@@ -1,0 +1,6 @@
+<app-header></app-header>
+
+<ion-content>
+  <h3 *ngIf="notificacao?.titulo" class="page-title">{{ notificacao?.titulo }}</h3>
+  <p padding-horizontal>{{ notificacao?.conteudo }}</p>
+</ion-content>

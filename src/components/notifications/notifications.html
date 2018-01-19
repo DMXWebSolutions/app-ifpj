@@ -4,8 +4,8 @@
       <ion-list-header no-margin class="show-all">
         <a>Visualizar todas (4)</a>
       </ion-list-header>
-      <button ion-item class="full-item notification" [ngClass]="{ new: !notificacao.lida }" *ngFor="let notificacao of notificacoes">
-        <h2>{{ notificacao.titulo }}</h2>
+      <button ion-item class="full-item notification" menuClose="right" (click)="showDetails(notificacao)" [ngClass]="{ new: !notificacao.lida }" *ngFor="let notificacao of notificacoes">
+        <h2 [ngClass]="{ strong: !notificacao.lida }">{{ notificacao.titulo }}</h2>
         <p>{{ notificacao.conteudo }}</p>
         <ion-note>{{ notificacao.criado | amTimeAgo }}</ion-note>
       </button>
