@@ -4,10 +4,10 @@
       <ion-list-header no-margin class="show-all">
         <a>Visualizar todas (4)</a>
       </ion-list-header>
-      <button ion-item class="full-item notification" *ngFor="let comunicado of comunicados">
-        <h2>{{ comunicado.titulo }}</h2>
-        <p>{{ comunicado.conteudo }}</p>
-        <ion-note>{{ comunicado.criado | date:'dd/MM/yyyy - HH:mm' }}</ion-note>
+      <button ion-item class="full-item notification" [ngClass]="{ new: !notificacao.lida }" *ngFor="let notificacao of notificacoes">
+        <h2>{{ notificacao.titulo }}</h2>
+        <p>{{ notificacao.conteudo }}</p>
+        <ion-note>{{ notificacao.criado | amTimeAgo }}</ion-note>
       </button>
     </ion-list>
   </ion-content>
