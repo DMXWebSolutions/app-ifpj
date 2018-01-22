@@ -31,10 +31,20 @@ export class MainNavigationComponent {
       { icon: 'ios-folder-open-outline',   title: 'Comunicados',name: 'comunicados' },
     ];
 
-    this.events.subscribe('user:logedin', (user, time) => {
-      this.user = user;
-      this.selectPicture();
-    });
+    if(this.auth.authenticated()) {
+      this.auth.me().subscribe(
+        user => {
+          this.user = user;
+        this.selectPicture();          
+        },
+        err => alert('Erro ao obter o usuário logado - status ' + err.status)
+      );
+    } else {
+      this.events.subscribe('user:logedin', (user, time) => {
+        this.user = user;
+        this.selectPicture();
+      });
+    }
    }
 
    public openPage(pageName: string) {

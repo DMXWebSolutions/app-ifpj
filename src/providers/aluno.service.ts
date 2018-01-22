@@ -6,6 +6,19 @@ import { ApiService } from "./api.service";
 export class AlunoService extends ApiService {
     protected resourceName: string = '/alunos';
 
+    public me(params: any = {}, updateCache: boolean = false): any {
+        let url = `${this.apiRoot}${this.resourceName}/me`;
+        let cacheKey = url;
+        let groupKey = `${this.resourceName}/me`;
+        let request = this.http.get(url);
+
+        if(!updateCache)
+            return this.cache.loadFromObservable(cacheKey, request);
+        else
+            return this.cache.loadFromDelayedObservable(cacheKey, request, groupKey, this.cacheTtl, 'all');
+
+    }
+
     public getDisciplinas(params: any = {}, updateCache: boolean = false) {
         let url = `${this.apiRoot}${this.resourceName}/disciplinas`;
         let cacheKey = url;
