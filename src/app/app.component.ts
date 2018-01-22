@@ -3,6 +3,8 @@ import { CacheService } from 'ionic-cache';
 import { Platform } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { initializeApp } from 'firebase';
+import { FIREBASE_CONFIG } from './firebase.config';
 
 import { AuthService } from '../providers/auth.service';
 import { OneSignal } from '@ionic-native/onesignal';
@@ -27,7 +29,12 @@ export class MyApp {
       
       this.initializeCache();
       this.initializeOneSignal();
+      this.initializeFirebase();
     });
+  }
+
+  private initializeFirebase() {
+    initializeApp(FIREBASE_CONFIG);
   }
 
   private initializeCache() {

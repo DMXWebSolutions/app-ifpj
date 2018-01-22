@@ -1,9 +1,9 @@
 <ion-menu side="left" type="reveal" [content]="content" class="main-navigation" id="main-navigation" persistent="true">
   <ion-header padding-top class="navigation-header">
-    <a (click)="getPicture()" class="navigation-avatar">
+    <a (click)="takePicture()" class="navigation-avatar">
       <img [src]="avatar" alt="Avatar">
     </a>
-    <h3 text-center margin class="navigation-title">{{ username }}</h3>
+    <h3 text-center margin class="navigation-title">{{ user?.nome }}</h3>
   </ion-header>
   <ion-content>
     <ion-list>

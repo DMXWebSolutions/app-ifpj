@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { App, LoadingController, Events } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { storage } from 'firebase';
 
 import { AuthService } from '../../providers/auth.service';
 
@@ -14,8 +15,8 @@ export class MainNavigationComponent {
   private loading;
   public pages: Array<{ icon: string, title: string, name: string }>
   public activePage: string = 'home';
-  public username: string = 'Instituto Francisca Paula';
-  public avatar: string = 'assets/imgs/menu/noavatar.png';
+  public user: any;
+  public avatar: any = 'assets/imgs/menu/noavatar.png';
 
   constructor(
     private appCtrl: App,
@@ -31,11 +32,8 @@ export class MainNavigationComponent {
     ];
 
     this.events.subscribe('user:logedin', (user, time) => {
-      this.username = user.nome;
-    });
-
-    this.events.subscribe('avatar:change', (avatar, time) => {
-      this.avatar = avatar;
+      this.user = user;
+      this.selectPicture();
     });
    }
 
@@ -64,18 +62,36 @@ export class MainNavigationComponent {
     );
    }
    
-   public getPicture() {
-    const options: CameraOptions = {
-      quality: 100,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      saveToPhotoAlbum: false,
-      correctOrientation: true
-    };
+    public async takePicture() {
+      try {
+        const options: CameraOptions = {
+          quality: 100,
+          sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+          destinationType: this.camera.DestinationType.DATA_URL,
+          encodingType: this.camera.EncodingType.JPEG,
+          mediaType: this.camera.MediaType.PICTURE,
+          saveToPhotoAlbum: false,
+          correctOrientation: true
+        };
+  
+        const result =  await this.camera.getPicture(options);
+        const image = `data:image/jpeg;base64,${result}`;
+        const imageName = `${this.user.codalun}`;
+        const pictures = storage().ref(`avatar/${imageName}`);
 
-    this.camera.getPicture(options).then(imageData => {
-      let base64Image = 'data:image/jpeg;base64,' + imageData;
-      this.events.publish('avatar:change', base64Image, Date.now());
-    });
+        this.avatar = image;
+
+        pictures.putString(image, 'data_url');
+      } catch (e) {
+        console.log(e);
+      }
+   }
+
+   public async selectPicture() {
+    const imageName = `${this.user.codalun}`;
+    const pictureRef = storage().ref(`avatar/${imageName}`);
+    const url = await pictureRef.getDownloadURL();
+
+    this.avatar = url;
    }
 }
