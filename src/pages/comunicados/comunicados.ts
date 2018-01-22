@@ -33,7 +33,8 @@ export class ComunicadosPage {
     loading.present();
 
     this.alunoService.getNotificacoes({
-      page: this.page
+      page: this.page,
+      tipo: 'comunicado'
     }).subscribe(
       comunicados => this.comunicados = comunicados.data,
       err => alert('Erro: ' + err.status),
@@ -52,7 +53,8 @@ export class ComunicadosPage {
  public loadMore() {
    this.page += 1;
    return this.alunoService.getNotificacoes({
-      page: this.page
+      page: this.page,
+      tipo: 'comunicado'
     }).flatMap(
       notificacoes => {
         for(let n of notificacoes.data) {
