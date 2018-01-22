@@ -36,7 +36,10 @@ export class NotificationsComponent {
    }
 
    public showDetails(notificacao) {
-      notificacao.lida = true;
+     if(notificacao.lida == false) {
+       this.events.publish('notification:read', notificacao);
+       notificacao.lida = true;
+     }
 
       this.app.getRootNavs()[0].push('notification-detail', {
         id: notificacao.id

@@ -62,14 +62,8 @@ export class AlunoService extends ApiService {
 
     public getNotiNewsNumber(params: any = {}, updateCache: boolean = false): any {
         let url = `${this.apiRoot}${this.resourceName}/notificacoes/count`;
-        let cacheKey = url;
-        let groupKey = url;
-        let request = this.http.get(url);
+        let request = this.http.get(url, {params: params});
 
-        if(!updateCache)
-            return this.cache.loadFromObservable(cacheKey, request);
-        else
-            return this.cache.loadFromDelayedObservable(cacheKey, request, groupKey, this.cacheTtl, 'all');
-
+        return request;
     }
 }

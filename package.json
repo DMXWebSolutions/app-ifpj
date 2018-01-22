@@ -73,6 +73,8 @@
       "cordova-plugin-filepath": {},
       "cordova-plugin-statusbar": {}
     },
-    "platforms": []
+    "platforms": [
+      "android"
+    ]
   }
 }

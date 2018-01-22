@@ -36,16 +36,6 @@ export class NotificationDetailPage {
     }).subscribe(
       notificacao => {
         this.notificacao = notificacao;
-
-        if(!notificacao.lida) {
-          this.notificationService.update({
-            id: this.navParams.get('id'),
-            lida: true
-          }).subscribe(
-            data => true,
-            err => alert('Erro: ' + err.status)
-          );
-        }
       },
       err => alert('Erro: ' + err.status),
       () => loading.dismiss()
