@@ -21,12 +21,12 @@ export class MyApp {
     splashScreen: SplashScreen
   ) {
     platform.ready().then(() => {
-      this.initializeCache();
-      this.initializeOneSignal();
-
-
       statusBar.styleDefault();
       splashScreen.hide();
+      
+      
+      this.initializeCache();
+      this.initializeOneSignal();
     });
   }
 

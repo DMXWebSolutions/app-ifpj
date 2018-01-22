@@ -3,7 +3,6 @@ import { Events, App } from 'ionic-angular';
 
 import { AlunoService } from '../../providers/aluno.service';
 import { AuthService } from '../../providers/auth.service';
-import { NotificacaoService } from '../../providers/notificacao.service';
 
 @Component({
   selector: 'notifications',
@@ -12,32 +11,26 @@ import { NotificacaoService } from '../../providers/notificacao.service';
 export class NotificationsComponent {
   @Input('content') content: any;
 
-  public notificacoes: any;
-  private perpage: number = 1;
-  private page: number = 1;
+  public notificacoes: any = [];
 
   constructor(
     private alunoService: AlunoService,
-    private notificacaoService: NotificacaoService,
     private auth: AuthService,
     private events: Events,
     private app: App
   ) {
     if(this.auth.authenticated()) {
-      this.getAlunos();
+      this.getNotificacoes();
     } else {
       this.events.subscribe('user:logedin', () => {
-        this.getAlunos();
+        this.getNotificacoes();
       });
     }
    }
 
-   private getAlunos() {
-    this.alunoService.getNotificacoes({
-      perpage: this.perpage,
-      page: this.page
-    }).subscribe(
-      notificacoes => this.notificacoes = notificacoes,
+   private getNotificacoes() {
+    this.alunoService.getNotificacoes().subscribe(
+      notificacoes => this.notificacoes = notificacoes.data,
       err => alert('Erro: ' + err.status)
     );
    }
@@ -48,5 +41,9 @@ export class NotificationsComponent {
       this.app.getRootNavs()[0].push('notification-detail', {
         id: notificacao.id
       });
+   }
+
+   public showAll() {
+    this.app.getRootNavs()[0].push('notifications');
    }
 }

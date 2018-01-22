@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AlunoService } from '../../providers/aluno.service';
 
 @Component({
   selector: 'app-header',
@@ -6,6 +7,18 @@ import { Component } from '@angular/core';
 })
 export class AppHeaderComponent {
 
-  constructor() { }
+  public notiNewsNumber: number;
 
+  constructor(
+    private alunoService: AlunoService
+  ) {
+    this.getNewsNumber();
+  }
+
+  public getNewsNumber() {
+    this.alunoService.getNotiNewsNumber().subscribe(
+      count => this.notiNewsNumber = count,
+      err => alert('Erro: ' + err.status)
+    );
+  }
 }

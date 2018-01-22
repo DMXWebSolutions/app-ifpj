@@ -43,7 +43,20 @@ export class AlunoService extends ApiService {
             return this.cache.loadFromDelayedObservable(cacheKey, request, groupKey, this.cacheTtl, 'all');
     }
 
-    public getNotificacoes(params: any = {}) {
-        return this.http.get(`${this.apiRoot}${this.resourceName}/notificacoes`, params);
+    public getNotificacoes(params: any = {}): any {
+        return this.http.get(`${this.apiRoot}${this.resourceName}/notificacoes`, { params: params });
+    }
+
+    public getNotiNewsNumber(params: any = {}, updateCache: boolean = false): any {
+        let url = `${this.apiRoot}${this.resourceName}/notificacoes/count`;
+        let cacheKey = url;
+        let groupKey = url;
+        let request = this.http.get(url);
+
+        if(!updateCache)
+            return this.cache.loadFromObservable(cacheKey, request);
+        else
+            return this.cache.loadFromDelayedObservable(cacheKey, request, groupKey, this.cacheTtl, 'all');
+
     }
 }

@@ -1,0 +1,20 @@
+<app-header></app-header>
+
+<ion-content>
+    <ion-list style="padding-bottom: 55px;">
+      <button ion-item class="full-item notification" menuClose="right" (click)="showDetails(comunicado)" [ngClass]="{ new: !comunicado.lida }" *ngFor="let comunicado of comunicados">
+        <h2 [ngClass]="{ strong: !comunicado.lida }">{{ comunicado.titulo }}</h2>
+        <p>{{ comunicado.conteudo }}</p>
+        <ion-note>{{ comunicado.criado | amTimeAgo }}</ion-note>
+      </button>
+    </ion-list>
+
+    <ion-infinite-scroll (ionInfinite)="$event.waitFor(loadMore())" *ngIf="!end">
+      <ion-infinite-scroll-content
+        style="padding-bottom: 50px;"
+        loadingSpinner="bubbles"
+        loadingText="Carregando notificações...">
+      >
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-content>

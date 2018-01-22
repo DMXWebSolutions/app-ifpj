@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 
-import { NotificacaoService } from '../../providers/notificacao.service';
+import { NotificacaoService } from '../../../providers/notificacao.service';
 
 @IonicPage({
   name: 'notification-detail',
