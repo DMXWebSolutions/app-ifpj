@@ -3,7 +3,6 @@ import { IonicPageModule } from 'ionic-angular';
 
 import { NotasPage } from './notas';
 import { ComponentsModule } from '../../../components/components.module';
-import { AlunoService } from '../../../providers/aluno.service';
 import { DisciplinaService } from '../../../providers/disciplina.service';
 import { AvaliacaoService } from '../../../providers/avaliacao.service';
 

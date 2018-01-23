@@ -4,7 +4,7 @@ import { Platform } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { initializeApp } from 'firebase';
-import { FIREBASE_CONFIG } from '../environments/environment';
+import { FIREBASE_CONFIG, environment } from '../environments/environment';
 
 import { AuthService } from '../providers/auth.service';
 import { OneSignal } from '@ionic-native/onesignal';
@@ -43,7 +43,7 @@ export class MyApp {
   }
 
   private initializeOneSignal() {
-    this.oneSignal.startInit('17d64313-0cfe-4add-a369-42445e21368c', '1031988098562');
+    this.oneSignal.startInit(environment.onesignalId, environment.googleProjectNumber);
     
     this.oneSignal.handleNotificationReceived().subscribe(() => {
       // do something when notification is received

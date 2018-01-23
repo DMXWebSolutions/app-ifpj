@@ -5,7 +5,6 @@ import { IonicPageModule } from 'ionic-angular';
 import { ComponentsModule } from '../../components/components.module';
 import { LoginPage } from './login';
 import { DeviceService } from '../../providers/device.service';
-import { AuthService } from '../../providers/auth.service';
 
 @NgModule({
   declarations: [

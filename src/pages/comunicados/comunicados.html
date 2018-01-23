@@ -1,13 +1,19 @@
 <app-header></app-header>
 
 <ion-content>
-    <ion-list style="padding-bottom: 55px;">
-      <button ion-item class="full-item notification" menuClose="right" (click)="showDetails(comunicado)" [ngClass]="{ new: !comunicado.lida, hide: comunicado.tipo != 'comunicado' }" *ngFor="let comunicado of alunoService.notifications">
-        <h2 [ngClass]="{ strong: !comunicado.lida }">{{ comunicado.titulo }}</h2>
-        <p>{{ comunicado.conteudo }}</p>
-        <ion-note>{{ comunicado.criado | amTimeAgo }}</ion-note>
-      </button>
-    </ion-list>
+    <h3 class="page-title">Comunicados</h3>
+    <ion-item-group>
+      <ion-item-divider color="light" text-uppercase>
+        Selecione para ver detalhes
+      </ion-item-divider>
+      <ion-list style="padding-bottom: 55px;">
+        <button ion-item class="full-item notification" menuClose="right" (click)="showDetails(comunicado)" [ngClass]="{ new: !comunicado.lida, hide: comunicado.tipo != 'comunicado' }" *ngFor="let comunicado of alunoService.notifications">
+          <h2 [ngClass]="{ strong: !comunicado.lida }">{{ comunicado.titulo }}</h2>
+          <p>{{ comunicado.conteudo }}</p>
+          <ion-note>{{ comunicado.criado | amTimeAgo }}</ion-note>
+        </button>
+      </ion-list>
+    </ion-item-group>
 
     <ion-infinite-scroll (ionInfinite)="$event.waitFor(loadMore())" *ngIf="!alunoService.notificationEnd">
       <ion-infinite-scroll-content

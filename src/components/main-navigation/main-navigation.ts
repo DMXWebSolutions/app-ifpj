@@ -16,7 +16,7 @@ export class MainNavigationComponent {
   public pages: Array<{ icon: string, title: string, name: string }>
   public activePage: string = 'home';
   public user: any;
-  public avatar: any = 'assets/imgs/menu/noavatar.png';
+  public avatar: any;
 
   constructor(
     private appCtrl: App,
@@ -35,20 +35,25 @@ export class MainNavigationComponent {
       this.auth.me().subscribe(
         user => {
           this.user = user;
-        this.selectPicture();          
+          this.selectPicture();       
         },
         err => alert('Erro ao obter o usuário logado - status ' + err.status)
       );
-    } else {
-      this.events.subscribe('user:logedin', (user, time) => {
-        this.user = user;
-        this.selectPicture();
-      });
     }
+
+    this.events.subscribe('user:logedin', (user, time) => {
+      this.user = user;
+      this.selectPicture();
+    });
    }
 
    public openPage(pageName: string) {
-    this.appCtrl.getRootNavs()[0].push(pageName);
+    if(pageName == 'home') {
+      this.appCtrl.getRootNavs()[0].setRoot(pageName);      
+    } else {
+      this.appCtrl.getRootNavs()[0].push(pageName);
+    }
+
     this.activePage = pageName;
    }
 
@@ -104,8 +109,10 @@ export class MainNavigationComponent {
       const pictureRef = storage().ref(`avatar/${imageName}`);
       const url = await pictureRef.getDownloadURL();
       this.avatar = url;
+      console.log(imageName);
     } catch(e) {
       console.log(e);
+      this.avatar = 'assets/imgs/menu/noavatar.png';
     }
    }
 }

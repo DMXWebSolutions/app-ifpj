@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { Events, App } from 'ionic-angular';
 
 import { AlunoService } from '../../providers/aluno.service';
-import { AuthService } from '../../providers/auth.service';
 import { NotificacaoService } from '../../providers/notificacao.service';
 
 @Component({
@@ -14,7 +13,6 @@ export class NotificationsComponent {
 
   constructor(
     private alunoService: AlunoService,
-    private auth: AuthService,
     private notificacaoService: NotificacaoService,
     private events: Events,
     private app: App

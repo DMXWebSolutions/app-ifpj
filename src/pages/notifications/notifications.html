@@ -1,10 +1,11 @@
 <app-header></app-header>
 
 <ion-content>
+  <h3 class="page-title">Notificações</h3>
   <ion-list style="padding-bottom:55px">
     <ion-item-group>
       <ion-item-divider color="light" text-uppercase>
-        Notificações
+        Selecione para ver detalhes
       </ion-item-divider>
       <button ion-item class="full-item notification" menuClose="right" (click)="showDetails(notificacao)" [ngClass]="{ new: !notificacao.lida }" *ngFor="let notificacao of alunoService.notifications">
         <h2 [ngClass]="{ strong: !notificacao.lida }">{{ notificacao.titulo }}</h2>

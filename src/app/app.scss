@@ -15,6 +15,12 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+ion-toast {
+    &.warning .toast-button {
+        color: color($colors, warning);
+    }
+}
+
 .bg-primary {
     background-color: color($colors, primary);
 }

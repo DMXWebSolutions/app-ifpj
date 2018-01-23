@@ -5,7 +5,6 @@ import { MomentModule } from 'angular2-moment';
 import moment from 'moment';
 
 import { ComponentsModule } from '../../components/components.module';
-import { AlunoService } from '../../providers/aluno.service';
 
 moment.locale('pt-br');
 

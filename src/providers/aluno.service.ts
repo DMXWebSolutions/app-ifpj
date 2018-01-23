@@ -24,12 +24,12 @@ export class AlunoService extends ApiService {
         if(this.auth.authenticated()) {
             this.getNotiNewsNumber();
             this.initializeNotificacoes();
-        } else {
-            this.events.subscribe('user:logedin', (user, time) => {
-                this.getNotiNewsNumber();
-                this.initializeNotificacoes();
-            });
         }
+        
+        this.events.subscribe('user:logedin', (user, time) => {
+            this.getNotiNewsNumber();
+            this.initializeNotificacoes();
+        });
 
         this.events.subscribe('notification:read', (notification) => {
             --this.notiNewsNumber;
@@ -44,15 +44,9 @@ export class AlunoService extends ApiService {
 
     public me(params: any = {}, updateCache: boolean = false): any {
         let url = `${this.apiRoot}${this.resourceName}/me`;
-        let cacheKey = url;
-        let groupKey = `${this.resourceName}/me`;
         let request = this.http.get(url);
 
-        if(!updateCache)
-            return this.cache.loadFromObservable(cacheKey, request);
-        else
-            return this.cache.loadFromDelayedObservable(cacheKey, request, groupKey, this.cacheTtl, 'all');
-
+        return request;
     }
 
     public getDisciplinas(params: any = {}, updateCache: boolean = false) {

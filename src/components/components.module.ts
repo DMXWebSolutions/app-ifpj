@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicModule } from 'ionic-angular/module';
 
-
-import { AlunoService } from '../providers/aluno.service';
 import { NotificacaoService } from '../providers/notificacao.service';
 import { MainNavigationComponent } from './main-navigation/main-navigation';
 import { NotificationsComponent } from './notifications/notifications';

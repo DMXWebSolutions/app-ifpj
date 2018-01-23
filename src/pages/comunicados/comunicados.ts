@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, LoadingController, Events } from 'ionic-angular';
+import { IonicPage, NavController, Events } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 
 import { AlunoService } from '../../providers/aluno.service';
@@ -15,7 +15,6 @@ import { AlunoService } from '../../providers/aluno.service';
 export class ComunicadosPage {
   constructor(
     private alunoService: AlunoService,
-    private loadingCtrl: LoadingController,
     private nav: NavController,
     private events: Events,
   ) {}
