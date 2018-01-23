@@ -99,10 +99,13 @@ export class MainNavigationComponent {
    }
 
    public async selectPicture() {
-    const imageName = `${this.user.codalun}`;
-    const pictureRef = storage().ref(`avatar/${imageName}`);
-    const url = await pictureRef.getDownloadURL();
-
-    this.avatar = url;
+    try {
+      const imageName = `${this.user.codalun}`;
+      const pictureRef = storage().ref(`avatar/${imageName}`);
+      const url = await pictureRef.getDownloadURL();
+      this.avatar = url;
+    } catch(e) {
+      console.log(e);
+    }
    }
 }
