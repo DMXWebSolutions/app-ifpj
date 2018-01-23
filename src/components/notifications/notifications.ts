@@ -3,6 +3,7 @@ import { Events, App } from 'ionic-angular';
 
 import { AlunoService } from '../../providers/aluno.service';
 import { AuthService } from '../../providers/auth.service';
+import { NotificacaoService } from '../../providers/notificacao.service';
 
 @Component({
   selector: 'notifications',
@@ -11,28 +12,23 @@ import { AuthService } from '../../providers/auth.service';
 export class NotificationsComponent {
   @Input('content') content: any;
 
-  public notificacoes: any = [];
-
   constructor(
     private alunoService: AlunoService,
     private auth: AuthService,
+    private notificacaoService: NotificacaoService,
     private events: Events,
     private app: App
   ) {
-    if(this.auth.authenticated()) {
-      this.getNotificacoes();
-    } else {
-      this.events.subscribe('user:logedin', () => {
-        this.getNotificacoes();
-      });
-    }
-   }
+    this.events.subscribe('notification:read', (notification) => {
+      this.notificacaoService.update({
+        id: notification.id,
+        lida: true
+      }).subscribe(
+        data => true,
+        err => alert('Erro ao atualizar a notificacao: ' + err.status)
+      );
 
-   private getNotificacoes() {
-    this.alunoService.getNotificacoes().subscribe(
-      notificacoes => this.notificacoes = notificacoes.data,
-      err => alert('Erro ao obter a lista de notificacoes: ' + err.status)
-    );
+    });
    }
 
    public showDetails(notificacao) {

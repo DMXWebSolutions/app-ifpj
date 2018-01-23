@@ -4,7 +4,7 @@
       <ion-list-header no-margin class="show-all">
         <a menuClose="right" (click)="showAll()">Visualizar todas</a>
       </ion-list-header>
-      <button ion-item class="full-item notification" menuClose="right" (click)="showDetails(notificacao)" [ngClass]="{ new: !notificacao.lida }" *ngFor="let notificacao of notificacoes">
+      <button ion-item class="full-item notification" menuClose="right" (click)="showDetails(notificacao)" [ngClass]="{ new: !notificacao.lida }" *ngFor="let notificacao of alunoService.notifications">
         <h2 [ngClass]="{ strong: !notificacao.lida }">{{ notificacao.titulo }}</h2>
         <p>{{ notificacao.conteudo }}</p>
         <ion-note>{{ notificacao.criado | amTimeAgo }}</ion-note>

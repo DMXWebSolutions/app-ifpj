@@ -3,29 +3,42 @@ import { Events } from "ionic-angular";
 
 import { ApiService } from "./api.service";
 import { AuthService } from "./auth.service";
+import { NotificacaoService } from "./notificacao.service";
 
 @Injectable()
 export class AlunoService extends ApiService {
     protected resourceName: string = '/alunos';
+    public notifications: any;
     public notiNewsNumber: any;
+    public notificationPage: number = 1;
+    public notificationEnd: boolean = false;
 
     constructor(
         private events: Events,
         private auth: AuthService,
+        private notificacaoService: NotificacaoService,
         injector: Injector
     ) {
         super(injector);
 
         if(this.auth.authenticated()) {
             this.getNotiNewsNumber();
+            this.initializeNotificacoes();
         } else {
             this.events.subscribe('user:logedin', (user, time) => {
                 this.getNotiNewsNumber();
+                this.initializeNotificacoes();
             });
         }
 
         this.events.subscribe('notification:read', (notification) => {
             --this.notiNewsNumber;
+
+            this.notificacaoService.update({id: notification.id, lida: true})
+                .subscribe(
+                    data => true,
+                    err => alert('Erro ao atualizar a notificacao - Status: ' + err.status)
+                );
         });
     }
 
@@ -81,6 +94,13 @@ export class AlunoService extends ApiService {
 
     public getNotificacoes(params: any = {}): any {
         return this.http.get(`${this.apiRoot}${this.resourceName}/notificacoes`, { params: params });
+    }
+
+    private initializeNotificacoes() {
+        this.getNotificacoes().subscribe(
+            notificacoes => this.notifications = notificacoes.data,
+            err => alert('Erro ao obter a lista de notificacoes: ' + err.status)
+        );
     }
 
     public getNotiNewsNumber(params: any = {}, updateCache: boolean = false): void {

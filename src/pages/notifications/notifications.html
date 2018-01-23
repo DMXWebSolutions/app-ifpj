@@ -6,7 +6,7 @@
       <ion-item-divider color="light" text-uppercase>
         Notificações
       </ion-item-divider>
-      <button ion-item class="full-item notification" menuClose="right" (click)="showDetails(notificacao)" [ngClass]="{ new: !notificacao.lida }" *ngFor="let notificacao of notificacoes">
+      <button ion-item class="full-item notification" menuClose="right" (click)="showDetails(notificacao)" [ngClass]="{ new: !notificacao.lida }" *ngFor="let notificacao of alunoService.notifications">
         <h2 [ngClass]="{ strong: !notificacao.lida }">{{ notificacao.titulo }}</h2>
         <p>{{ notificacao.conteudo }}</p>
         <ion-note>{{ notificacao.criado | amTimeAgo }}</ion-note>
@@ -14,7 +14,7 @@
     </ion-item-group>
   </ion-list>
 
-  <ion-infinite-scroll (ionInfinite)="$event.waitFor(loadMore())" *ngIf="!end">
+  <ion-infinite-scroll (ionInfinite)="$event.waitFor(loadMore())" *ngIf="!alunoService.notificationEnd">
     <ion-infinite-scroll-content
       style="padding-bottom: 50px;"
       loadingSpinner="bubbles"

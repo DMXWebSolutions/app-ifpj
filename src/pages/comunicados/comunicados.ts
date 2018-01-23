@@ -13,35 +13,12 @@ import { AlunoService } from '../../providers/aluno.service';
   templateUrl: 'comunicados.html',
 })
 export class ComunicadosPage {
-  public comunicados: any;
-  public page: number = 1;
-  public end: boolean = false;
-
   constructor(
     private alunoService: AlunoService,
     private loadingCtrl: LoadingController,
     private nav: NavController,
     private events: Events,
-  ) {
-    this.getComunicados();
-  }
-
-  private getComunicados() {
-    let loading = this.loadingCtrl.create({
-      content: 'Carregando comunicados...'
-    });
-
-    loading.present();
-
-    this.alunoService.getNotificacoes({
-      page: this.page,
-      tipo: 'comunicado'
-    }).subscribe(
-      comunicados => this.comunicados = comunicados.data,
-      err => alert('Erro ao obter a lista de comunicados: ' + err.status),
-      () => loading.dismiss()
-    );
-  }
+  ) {}
 
   public showDetails(notificacao) {
     if(notificacao.lida == false) {
@@ -55,21 +32,19 @@ export class ComunicadosPage {
   }
 
   public loadMore() {
-   this.page += 1;
+   this.alunoService.notificationPage += 1;
    return this.alunoService.getNotificacoes({
-      page: this.page,
-      tipo: 'comunicado'
+      page: this.alunoService.notificationPage,
     }).flatMap(
       notificacoes => {
         for(let n of notificacoes.data) {
-          this.comunicados.push(n);
+          this.alunoService.notifications.push(n);
         }
         if(notificacoes.current_page === notificacoes.last_page) {
-          this.end = true;
+          this.alunoService.notificationEnd = true;
         }
         return Observable.of(notificacoes.data);
       }
     ).toPromise();
   }
-
 }
