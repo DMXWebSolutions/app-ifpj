@@ -17,6 +17,7 @@ import { ComponentsModule } from '../components/components.module';
 import { AuthService } from '../providers/auth.service';
 import { TokenInterceptor } from '../providers/token.interceptor';
 import { DeviceService } from '../providers/device.service';
+import { AlunoService } from '../providers/aluno.service';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { DeviceService } from '../providers/device.service';
       multi: true
     },
     OneSignal,
+    AlunoService,
     AuthService,
     DeviceService,
     SplashScreen,

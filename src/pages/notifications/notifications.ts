@@ -36,7 +36,7 @@ export class NotificationsPage {
       page: this.page
     }).subscribe(
       notificacoes => this.notificacoes = notificacoes.data,
-      err => alert('Erro: ' + err.status),
+      err => alert('Erro ao obter lista de notificacoes: ' + err.status),
       () => loading.dismiss()
     );
    }

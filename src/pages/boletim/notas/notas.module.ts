@@ -16,7 +16,6 @@ import { AvaliacaoService } from '../../../providers/avaliacao.service';
     IonicPageModule.forChild(NotasPage),
   ],
   providers: [
-    AlunoService,
     DisciplinaService,
     AvaliacaoService,
   ]

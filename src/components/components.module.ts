@@ -28,7 +28,6 @@ moment.locale('pt-br');
     	AppHeaderComponent
 	],
 	providers: [
-		AlunoService,
 		NotificacaoService
 	]
 })

@@ -31,7 +31,7 @@ export class NotificationsComponent {
    private getNotificacoes() {
     this.alunoService.getNotificacoes().subscribe(
       notificacoes => this.notificacoes = notificacoes.data,
-      err => alert('Erro: ' + err.status)
+      err => alert('Erro ao obter a lista de notificacoes: ' + err.status)
     );
    }
 

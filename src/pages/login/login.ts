@@ -85,7 +85,7 @@ export class LoginPage {
           'active': true
         }).subscribe(
           data => true,
-          err => alert('Erro: ' + err.status),
+          err => alert('Erro ao armazena o id do dispositivo: ' + err.status),
           () => true
         )
       }

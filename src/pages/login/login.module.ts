@@ -17,7 +17,6 @@ import { AuthService } from '../../providers/auth.service';
     IonicPageModule.forChild(LoginPage),
   ],
   providers: [
-    AuthService,
     DeviceService
   ],
 })

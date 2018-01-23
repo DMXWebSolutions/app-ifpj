@@ -13,8 +13,5 @@ import { AlunoService } from '../../providers/aluno.service';
     ComponentsModule,
     IonicPageModule.forChild(BoletimPage),
   ],
-  providers: [
-    AlunoService
-  ]
 })
 export class BoletimPageModule {}

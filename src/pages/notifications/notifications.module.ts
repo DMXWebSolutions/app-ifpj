@@ -18,8 +18,5 @@ moment.locale('pt-br');
     MomentModule,
     ComponentsModule
   ],
-  providers: [
-    AlunoService
-  ]
 })
 export class NotificationsPageModule {}

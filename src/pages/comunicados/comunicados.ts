@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController, Events } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 
 import { AlunoService } from '../../providers/aluno.service';
@@ -20,7 +20,8 @@ export class ComunicadosPage {
   constructor(
     private alunoService: AlunoService,
     private loadingCtrl: LoadingController,
-    private nav: NavController
+    private nav: NavController,
+    private events: Events,
   ) {
     this.getComunicados();
   }
@@ -37,20 +38,23 @@ export class ComunicadosPage {
       tipo: 'comunicado'
     }).subscribe(
       comunicados => this.comunicados = comunicados.data,
-      err => alert('Erro: ' + err.status),
+      err => alert('Erro ao obter a lista de comunicados: ' + err.status),
       () => loading.dismiss()
     );
-   }
+  }
 
-   public showDetails(notificacao) {
-    notificacao.lida = true;
+  public showDetails(notificacao) {
+    if(notificacao.lida == false) {
+      this.events.publish('notification:read', notificacao);
+      notificacao.lida = true;
+    }
 
     this.nav.push('notification-detail', {
       id: notificacao.id
     });
- }
+  }
 
- public loadMore() {
+  public loadMore() {
    this.page += 1;
    return this.alunoService.getNotificacoes({
       page: this.page,
@@ -66,6 +70,6 @@ export class ComunicadosPage {
         return Observable.of(notificacoes.data);
       }
     ).toPromise();
- }
+  }
 
 }

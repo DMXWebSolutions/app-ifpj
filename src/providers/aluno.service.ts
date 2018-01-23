@@ -1,10 +1,33 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Injector } from "@angular/core";
+import { Events } from "ionic-angular";
 
 import { ApiService } from "./api.service";
+import { AuthService } from "./auth.service";
 
 @Injectable()
 export class AlunoService extends ApiService {
     protected resourceName: string = '/alunos';
+    public notiNewsNumber: any;
+
+    constructor(
+        private events: Events,
+        private auth: AuthService,
+        injector: Injector
+    ) {
+        super(injector);
+
+        if(this.auth.authenticated()) {
+            this.getNotiNewsNumber();
+        } else {
+            this.events.subscribe('user:logedin', (user, time) => {
+                this.getNotiNewsNumber();
+            });
+        }
+
+        this.events.subscribe('notification:read', (notification) => {
+            --this.notiNewsNumber;
+        });
+    }
 
     public me(params: any = {}, updateCache: boolean = false): any {
         let url = `${this.apiRoot}${this.resourceName}/me`;
@@ -60,10 +83,13 @@ export class AlunoService extends ApiService {
         return this.http.get(`${this.apiRoot}${this.resourceName}/notificacoes`, { params: params });
     }
 
-    public getNotiNewsNumber(params: any = {}, updateCache: boolean = false): any {
+    public getNotiNewsNumber(params: any = {}, updateCache: boolean = false): void {
         let url = `${this.apiRoot}${this.resourceName}/notificacoes/count`;
         let request = this.http.get(url, {params: params});
 
-        return request;
+        request.subscribe(
+            data => this.notiNewsNumber = data,
+            err => alert('Erro ao obter o numero de notificacoes: ' + err.status)
+        );
     }
 }

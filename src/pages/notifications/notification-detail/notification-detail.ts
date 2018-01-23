@@ -34,10 +34,8 @@ export class NotificationDetailPage {
     this.notificationService.get({
       id: this.navParams.get('id')
     }).subscribe(
-      notificacao => {
-        this.notificacao = notificacao;
-      },
-      err => alert('Erro: ' + err.status),
+      notificacao => this.notificacao = notificacao,
+      err => alert('Erro ao obter os dados da notificacao: ' + err.status),
       () => loading.dismiss()
     );
   }

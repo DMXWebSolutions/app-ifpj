@@ -69,7 +69,7 @@ export class MainNavigationComponent {
         this.appCtrl.getRootNavs()[0].setRoot('login');
         this.events.publish('user:logout', data);
       },
-      err => alert('Erro: ' + err.status),
+      err => alert('Erro ao efetuar logout: ' + err.status),
     );
    }
    
