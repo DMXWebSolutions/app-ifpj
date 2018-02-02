@@ -16,7 +16,7 @@ export class MainNavigationComponent {
   public pages: Array<{ icon: string, title: string, name: string }>
   public activePage: string = 'home';
   public user: any;
-  public avatar: any;
+  public avatar: any = 'assets/imgs/menu/noavatar.png';
 
   constructor(
     private appCtrl: App,
@@ -109,10 +109,8 @@ export class MainNavigationComponent {
       const pictureRef = storage().ref(`avatar/${imageName}`);
       const url = await pictureRef.getDownloadURL();
       this.avatar = url;
-      console.log(imageName);
     } catch(e) {
       console.log(e);
-      this.avatar = 'assets/imgs/menu/noavatar.png';
     }
    }
 }

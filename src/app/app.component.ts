@@ -44,15 +44,6 @@ export class MyApp {
 
   private initializeOneSignal() {
     this.oneSignal.startInit(environment.onesignalId, environment.googleProjectNumber);
-    
-    this.oneSignal.handleNotificationReceived().subscribe(() => {
-      // do something when notification is received
-    });
-
-    this.oneSignal.handleNotificationOpened().subscribe(() => {
-      // do something when a notification is opened
-    });
-
     this.oneSignal.endInit();
   }
 }
