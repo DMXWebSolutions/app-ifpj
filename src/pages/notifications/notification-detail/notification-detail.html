@@ -2,5 +2,6 @@
 
 <ion-content>
   <h3 *ngIf="notificacao?.titulo" class="page-title">{{ notificacao?.titulo }}</h3>
+  <img *ngIf="notificacao?.url_arquivo" [src]="notificacao.url_arquivo" alt="Imagem">
   <p padding-horizontal>{{ notificacao?.conteudo }}</p>
 </ion-content>

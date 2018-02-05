@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CacheService } from 'ionic-cache';
-import { Platform } from 'ionic-angular';
+import { Platform, App } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { initializeApp } from 'firebase';
@@ -8,6 +8,8 @@ import { FIREBASE_CONFIG, environment } from '../environments/environment';
 
 import { AuthService } from '../providers/auth.service';
 import { OneSignal } from '@ionic-native/onesignal';
+import { AlunoService } from '../providers/aluno.service';
+import { NotificacaoService } from '../providers/notificacao.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,6 +20,9 @@ export class MyApp {
     private auth: AuthService,
     private cache: CacheService,
     private oneSignal: OneSignal,
+    private alunoService: AlunoService,
+    private notificacaoService: NotificacaoService,
+    private app: App,
     platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen
@@ -44,7 +49,37 @@ export class MyApp {
 
   private initializeOneSignal() {
     this.oneSignal.startInit(environment.onesignalId, environment.googleProjectNumber);
+
+    this.oneSignal.handleNotificationOpened().subscribe((notification) => {
+      let id = notification.notification.payload.additionalData.id;
+      let notifications = this.alunoService.notifications;
+      
+      if (!!notifications) {
+        let notificationExists = notifications.some((n) => n.id == id);
+        if (!notificationExists) {
+          this.addNotificationToPanel(id);
+        }
+      } else {
+        this.showAll();
+      }
+    });
+    
     this.oneSignal.endInit();
   }
+
+  private addNotificationToPanel(id: number) {
+    this.notificacaoService.get({ id: id }).subscribe(
+      notificacao => {
+        this.alunoService.notifications.unshift(notificacao);
+        ++this.alunoService.notiNewsNumber;
+      },
+      err => console.log(err),
+      () =>  this.showAll()
+    );
+   }
+
+   private showAll() {
+    this.app.getRootNavs()[0].push('notifications');
+   }
 }
 

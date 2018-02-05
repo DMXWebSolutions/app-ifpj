@@ -28,20 +28,6 @@ export class NotificationsComponent {
         err => alert('Erro ao atualizar a notificacao: ' + err.status)
       );
     });
-
-    this.oneSignal.handleNotificationOpened().subscribe((notification) => {
-      let id = notification.notification.payload.additionalData.id;
-      let notifications = this.alunoService.notifications;
-      
-      if (!!notifications) {
-        let notificationExists = notifications.some((n) => n.id == id);
-        if (!notificationExists) {
-          this.add(id);
-        }
-      } else {
-        this.showAll();
-      }
-    });
    }
 
    public showDetails(notificacao) {
