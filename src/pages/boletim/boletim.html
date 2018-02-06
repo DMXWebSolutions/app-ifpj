@@ -11,7 +11,7 @@
 
   <h3 class="page-title">Boletim</h3>
 
-  <ion-list>
+  <ion-list *ngIf="!!disciplinas?.length; else emptyTemplate">
     <ion-item-group>
       <ion-item-divider color="light" text-uppercase>Selecione a disciplina</ion-item-divider>
       <button ion-item class="full-item" (click)="go2Avaliacoes(disciplina.coddisc)" *ngFor="let disciplina of disciplinas">
@@ -19,4 +19,11 @@
       </button>
     </ion-item-group>
   </ion-list>
+
+  <ng-template #emptyTemplate>
+    <div padding>
+      <ion-icon style="font-size: 48px" name="ios-cube-outline"></ion-icon>
+      <p>Você ainda não possui disciplinas cadastradas.</p>
+    </div>
+  </ng-template>
 </ion-content>

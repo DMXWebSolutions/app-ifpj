@@ -1,4 +1,10 @@
 main-navigation {
+    ion-content {
+        .scroll-content {
+            padding-bottom: 0px;
+        }
+    }
+
     .main-navigation {
         box-shadow: 1px 1px 1px #fefefe;
     }
@@ -39,6 +45,13 @@ main-navigation {
         }
     }
 
+    .nav-items {
+        height: 100%;
+        min-height: 206px;
+        position: relative;
+        margin-bottom: 0px !important;
+    }
+
     [ion-item] {
         border-bottom: 1px solid color($colors, line) !important;
     }
@@ -54,7 +67,7 @@ main-navigation {
 
     .btn-logout {
         position: absolute;
-        bottom: 0;
+        bottom: -1px;
         left:0;
         background-color: color($colors, danger);
         color: #fff;

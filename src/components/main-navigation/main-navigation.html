@@ -6,7 +6,7 @@
     <h3 text-center margin class="navigation-title">{{ user?.nome }}</h3>
   </ion-header>
   <ion-content>
-    <ion-list>
+    <ion-list class="nav-items">
       <button *ngFor="let page of pages" ion-item menuClose="left" [class.activePage]="isActive(page.name)" (click)="openPage(page.name)">
         <ion-icon [name]="page.icon" padding-right></ion-icon>
         {{ page.title }}

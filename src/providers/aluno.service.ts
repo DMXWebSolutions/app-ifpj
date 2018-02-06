@@ -8,8 +8,9 @@ import { NotificacaoService } from "./notificacao.service";
 @Injectable()
 export class AlunoService extends ApiService {
     protected resourceName: string = '/alunos';
-    public notifications: any;
-    public notiNewsNumber: any;
+    public ccount: number = 0;
+    public notifications: any = null;
+    public notiNewsNumber: any = null;
     public notificationPage: number = 1;
     public notificationEnd: boolean = false;
 
@@ -92,7 +93,12 @@ export class AlunoService extends ApiService {
 
     private initializeNotificacoes() {
         this.getNotificacoes().subscribe(
-            notificacoes => this.notifications = notificacoes.data,
+            notificacoes => {
+                for (let n of notificacoes.data) {
+                    if (n.tipo == 'comunicado') ++this.ccount;
+                }
+                this.notifications = notificacoes.data;
+            },
             err => alert('Erro ao obter a lista de notificacoes: ' + err.status)
         );
     }

@@ -1,6 +1,6 @@
 <ion-menu side="right" type="reveal" [content]="content" id="notifications" persistent="true">
   <ion-content>
-    <ion-list>
+    <ion-list *ngIf="!!alunoService?.notifications?.length; else emptyTemplate">
       <ion-list-header no-margin class="show-all">
         <a menuClose="right" (click)="showAll()">Visualizar todas</a>
       </ion-list-header>
@@ -10,5 +10,12 @@
         <ion-note>{{ notificacao.criado | amTimeAgo }}</ion-note>
       </button>
     </ion-list>
+
+    <ng-template #emptyTemplate>
+      <div padding>
+        <ion-icon style="font-size: 48px" name="ios-cube-outline"></ion-icon>
+        <p>Você ainda não possui notificações.</p>
+      </div>
+    </ng-template>
   </ion-content>
 </ion-menu>

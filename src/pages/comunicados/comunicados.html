@@ -2,7 +2,7 @@
 
 <ion-content>
     <h3 class="page-title">Comunicados</h3>
-    <ion-item-group>
+    <ion-item-group *ngIf="!!alunoService?.ccount; else emptyTemplate">
       <ion-item-divider color="light" text-uppercase>
         Selecione para ver detalhes
       </ion-item-divider>
@@ -15,11 +15,18 @@
       </ion-list>
     </ion-item-group>
 
+    <ng-template #emptyTemplate>
+      <div padding>
+        <ion-icon style="font-size: 48px" name="ios-cube-outline"></ion-icon>
+        <p>Não há comunicados registrados para o aluno.</p>
+      </div>
+    </ng-template>
+
     <ion-infinite-scroll (ionInfinite)="$event.waitFor(loadMore())" *ngIf="!alunoService.notificationEnd">
       <ion-infinite-scroll-content
         style="padding-bottom: 50px;"
         loadingSpinner="bubbles"
-        loadingText="Carregando notificações...">
+        loadingText="Carregando comunicados...">
       >
       </ion-infinite-scroll-content>
     </ion-infinite-scroll>

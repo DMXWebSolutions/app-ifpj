@@ -9,6 +9,6 @@ import { AlunoService } from '../../providers/aluno.service';
 export class AppHeaderComponent {
 
   constructor(
-    private alunoService: AlunoService,
+    public alunoService: AlunoService,
   ) {}
 }

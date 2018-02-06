@@ -52,7 +52,7 @@ export class NotasPage {
   }
 
   public getAvaliacao(): string {
-    return this.avaliacaoService.getName(this.params.get('codverifi'));
+    return ' - ' + this.avaliacaoService.getName(this.params.get('codverifi'));
   }
 
   public refreshContent(refresher) {

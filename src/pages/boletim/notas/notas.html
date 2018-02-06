@@ -10,32 +10,39 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <h3 class="page-title">Boletim - {{ getAvaliacao() }}</h3>
+  <h3 class="page-title">Boletim {{ getAvaliacao() }}</h3>
 
-  <ion-grid no-padding *ngFor="let nota of notas">
-    <ion-row class="header" *ngFor="let d of disciplina">
-      <ion-col col-6>{{ d.nomedisc }}</ion-col>
+  <ion-grid no-padding *ngIf="!!notas?.length; else emptyTemplate">
+    <ion-row class="header">
+      <ion-col col-6>{{ disciplina[0]?.nomedisc }}</ion-col>
       <ion-col col-6>Notas</ion-col>
     </ion-row>
     <ion-row class="body">        
       <ion-col col-6>P1</ion-col>
-      <ion-col col-6>{{ nota.p1 }}</ion-col>
+      <ion-col col-6>{{ notas.p1 }}</ion-col>
       <ion-col col-6>P2</ion-col>
-      <ion-col col-6>{{ nota.p2 }}</ion-col>
+      <ion-col col-6>{{ notas.p2 }}</ion-col>
       <ion-col col-6>Trabalho</ion-col>
-      <ion-col col-6>{{ nota.trabalho }}</ion-col>
+      <ion-col col-6>{{ notas.trabalho }}</ion-col>
       <ion-col col-6>PS</ion-col>
-      <ion-col col-6>{{ nota.ps }}</ion-col>
+      <ion-col col-6>{{ notas.ps }}</ion-col>
       <ion-col col-6>Conc</ion-col>
-      <ion-col col-6>{{ nota.conc }}</ion-col>
+      <ion-col col-6>{{ notas.conc }}</ion-col>
       <ion-col col-6>Simulado</ion-col>
-      <ion-col col-6>{{ nota.simulado }}</ion-col>
+      <ion-col col-6>{{ notas.simulado }}</ion-col>
       <ion-col col-6>Projeto</ion-col>
-      <ion-col col-6>{{ nota.projeto }}</ion-col>
+      <ion-col col-6>{{ notas.projeto }}</ion-col>
     </ion-row>
     <ion-row class="footer">        
       <ion-col col-6>Total</ion-col>
-      <ion-col col-6>{{ nota.total }}</ion-col>
+      <ion-col col-6>{{ notas.total }}</ion-col>
     </ion-row>
   </ion-grid>
+
+  <ng-template #emptyTemplate>
+    <div padding>
+      <ion-icon style="font-size: 48px" name="ios-cube-outline"></ion-icon>
+      <p>Você ainda não possui notas registradas.</p>
+    </div>
+  </ng-template>
 </ion-content>
