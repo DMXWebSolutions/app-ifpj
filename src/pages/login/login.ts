@@ -17,13 +17,19 @@ import { DeviceService } from '../../providers/device.service';
 })
 export class LoginPage {
 
+  public  activeTab:       string  = 'aluno';
   private passwordVisible: boolean = false;
   private loading;
   private toast;
 
-  loginForm = new FormGroup({
+  public alunoForm = new FormGroup({
     codalun: new FormControl(),
     Cpfresp: new FormControl(),
+  });
+
+  public professorForm = new FormGroup({
+    user:  new FormControl(),
+    senha: new FormControl(),
   });
 
   constructor(
@@ -90,6 +96,10 @@ export class LoginPage {
         )
       }
     );
+  }
+
+  public showForm(formToShow: string) {
+    this.activeTab = formToShow;
   }
 
 }

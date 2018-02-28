@@ -3,7 +3,12 @@
     <img src="assets/imgs/logo.png" alt="Ciranda do Recreio">
   </div>
 
-  <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+  <div class="login-tabs">
+    <span (click)="showForm('aluno')"     class="tab" [ngClass]="{'active': activeTab == 'aluno'}"    >Aluno</span>
+    <span (click)="showForm('professor')" class="tab" [ngClass]="{'active': activeTab == 'professor'}">Professor</span>
+  </div>
+
+  <form [formGroup]="alunoForm" (ngSubmit)="login(alunoForm.value)" *ngIf="activeTab == 'aluno'">
     <ion-list class="form-login" no-lines>
       <ion-item no-padding class="input-container" margin-bottom>
         <label item-left class="icon-label">
@@ -25,4 +30,27 @@
       </ion-item>
     </ion-list>
   </form>
+
+  <form [formGroup]="professorForm" (ngSubmit)="login(professorForm.value)" *ngIf="activeTab == 'professor'">
+      <ion-list class="form-login" no-lines>
+        <ion-item no-padding class="input-container" margin-bottom>
+          <label item-left class="icon-label">
+            <ion-icon name="person"></ion-icon>
+          </label>
+          <ion-input placeholder="Usuário" class="form-item" type="text" formControlName="user"></ion-input>
+        </ion-item>
+        <ion-item no-padding class="input-container">
+          <label item-left class="icon-label">
+            <ion-icon name="lock"></ion-icon>
+          </label>
+          <ion-input placeholder="Senha" class="form-item" [type]="passwordVisible ? 'text' : 'password'" formControlName="senha"></ion-input>
+          <a item-right padding no-margin class="show-pass" (click)="showPassword()">
+            <ion-icon name="eye"></ion-icon>
+          </a>
+        </ion-item>
+        <ion-item text-center no-padding no-margin class="input-container btn">
+          <button type="submit" ion-button full padding color="secondary">Entrar</button>
+        </ion-item>
+      </ion-list>
+    </form>
 </ion-content>
