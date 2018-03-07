@@ -1,11 +1,8 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { ToastController, LoadingController, IonicPage, NavController, Events, MenuController } from 'ionic-angular';
-import { OneSignal } from '@ionic-native/onesignal';
-import { CacheService } from 'ionic-cache';
+import { Component }                 from '@angular/core';
+import { IonicPage, MenuController } from 'ionic-angular';
 
-import { AuthService } from '../../providers/auth.service';
-import { DeviceService } from '../../providers/device.service';
+import { AlunoService }              from '../../providers/aluno.service';
+import { ProfessorService }          from '../../providers/professor.service';
 
 @IonicPage({
   name: 'login',
@@ -16,86 +13,34 @@ import { DeviceService } from '../../providers/device.service';
   templateUrl: 'login.html'
 })
 export class LoginPage {
+  public  activeTab: string  = 'aluno';
 
-  public  activeTab:       string  = 'aluno';
-  private passwordVisible: boolean = false;
-  private loading;
-  private toast;
-
-  public alunoForm = new FormGroup({
-    codalun: new FormControl(),
-    Cpfresp: new FormControl(),
-  });
-
-  public professorForm = new FormGroup({
-    user:  new FormControl(),
-    senha: new FormControl(),
-  });
+  public alunoForm;
+  public alunoFields;
+  public professorForm;
+  public professorFields;
 
   constructor(
-    private oneSignal: OneSignal,
-    private toastCtrl: ToastController,
-    private loadingCtrl: LoadingController,
-    private deviceService: DeviceService,
-    private authService: AuthService,
-    private navCtrl: NavController,
     private menu: MenuController,
-    private cache: CacheService,
-    private events: Events
-  ) {
+    private alunoService: AlunoService,
+    private professorService: ProfessorService
+  ) {}
+
+  ionViewWillEnter() {
+    this.disableMenus();
+    this.initializeForms();
+  }
+
+  private disableMenus() {
     this.menu.enable(false, 'main-navigation');
     this.menu.enable(false, 'notifications');
   }
 
-  public showPassword() {
-    this.passwordVisible = !this.passwordVisible;
-  }
-
-  public login(params) {
-    this.cache.clearAll();
-
-    this.loading = this.loadingCtrl.create({
-      content: 'Entrando...',
-      dismissOnPageChange: true
-    });
-
-    this.loading.present();
-    this.authService.login(params).subscribe(
-      user => {
-        this.events.publish('user:logedin', user, Date.now());
-        this.navCtrl.setRoot('home');
-        this.menu.enable(true, 'main-navigation');
-        this.menu.enable(true, 'notifications');
-        this.storeOneSignalId();
-      },
-      err => {
-        this.loading.dismiss();
-        this.toast = this.toastCtrl.create({
-          message: 'Usuário ou senha incorretos.',
-          dismissOnPageChange: true,
-          showCloseButton: true,
-          closeButtonText: 'Ok',
-          cssClass: 'warning',
-          duration: 10000,
-        });
-        this.toast.present();
-      }
-    );
-  }
-
-  private storeOneSignalId() {
-    this.oneSignal.getIds().then(
-      onesignal => {
-        this.deviceService.add({
-          'onesignal_id': onesignal.userId,
-          'active': true
-        }).subscribe(
-          data => true,
-          err => alert('Erro ao armazena o id do dispositivo: ' + err.status),
-          () => true
-        )
-      }
-    );
+  private initializeForms() {
+    this.alunoForm       = this.alunoService.getLoginControls();
+    this.alunoFields     = this.alunoService.getLoginFields();
+    this.professorForm   = this.professorService.getLoginControls();
+    this.professorFields = this.professorService.getLoginFields();
   }
 
   public showForm(formToShow: string) {

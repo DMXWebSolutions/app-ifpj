@@ -7,6 +7,7 @@ import { NotificationsComponent } from './notifications/notifications';
 import { AppHeaderComponent } from './app-header/app-header';
 import { MomentModule } from 'angular2-moment';
 import moment from 'moment';
+import { LoginFormComponent } from './login-form/login-form';
 
 moment.locale('pt-br');
 
@@ -18,12 +19,14 @@ moment.locale('pt-br');
 	declarations: [
 		MainNavigationComponent,
 		NotificationsComponent,
-    	AppHeaderComponent
+    	AppHeaderComponent,
+    LoginFormComponent
 	],
 	exports: [
 		MainNavigationComponent,
 		NotificationsComponent,
-    	AppHeaderComponent
+    	AppHeaderComponent,
+    LoginFormComponent
 	],
 	providers: [
 		NotificacaoService

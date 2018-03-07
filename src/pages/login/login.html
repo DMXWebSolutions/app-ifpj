@@ -8,49 +8,9 @@
     <span (click)="showForm('professor')" class="tab" [ngClass]="{'active': activeTab == 'professor'}">Professor</span>
   </div>
 
-  <form [formGroup]="alunoForm" (ngSubmit)="login(alunoForm.value)" *ngIf="activeTab == 'aluno'">
-    <ion-list class="form-login" no-lines>
-      <ion-item no-padding class="input-container" margin-bottom>
-        <label item-left class="icon-label">
-          <ion-icon name="person"></ion-icon>
-        </label>
-        <ion-input placeholder="Matricula" class="form-item" type="text" formControlName="codalun"></ion-input>
-      </ion-item>
-      <ion-item no-padding class="input-container">
-        <label item-left class="icon-label">
-          <ion-icon name="lock"></ion-icon>
-        </label>
-        <ion-input placeholder="CPF do responsável" class="form-item" [type]="passwordVisible ? 'text' : 'password'" formControlName="Cpfresp"></ion-input>
-        <a item-right padding no-margin class="show-pass" (click)="showPassword()">
-          <ion-icon name="eye"></ion-icon>
-        </a>
-      </ion-item>
-      <ion-item text-center no-padding no-margin class="input-container btn">
-        <button type="submit" ion-button full padding color="secondary">Entrar</button>
-      </ion-item>
-    </ion-list>
-  </form>
-
-  <form [formGroup]="professorForm" (ngSubmit)="login(professorForm.value)" *ngIf="activeTab == 'professor'">
-      <ion-list class="form-login" no-lines>
-        <ion-item no-padding class="input-container" margin-bottom>
-          <label item-left class="icon-label">
-            <ion-icon name="person"></ion-icon>
-          </label>
-          <ion-input placeholder="Usuário" class="form-item" type="text" formControlName="user"></ion-input>
-        </ion-item>
-        <ion-item no-padding class="input-container">
-          <label item-left class="icon-label">
-            <ion-icon name="lock"></ion-icon>
-          </label>
-          <ion-input placeholder="Senha" class="form-item" [type]="passwordVisible ? 'text' : 'password'" formControlName="senha"></ion-input>
-          <a item-right padding no-margin class="show-pass" (click)="showPassword()">
-            <ion-icon name="eye"></ion-icon>
-          </a>
-        </ion-item>
-        <ion-item text-center no-padding no-margin class="input-container btn">
-          <button type="submit" ion-button full padding color="secondary">Entrar</button>
-        </ion-item>
-      </ion-list>
-    </form>
+  <div class="form-container">
+    <login-form class="form" [ngClass]="{'active': activeTab == 'aluno'}" [controls]="alunoForm" [fields]="alunoFields"></login-form>
+    <login-form class="form" [ngClass]="{'active': activeTab == 'professor'}" [controls]="professorForm" [fields]="professorFields"></login-form>
+  </div>
+    
 </ion-content>

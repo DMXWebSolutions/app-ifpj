@@ -1,0 +1,43 @@
+login-form {
+    .form-login {
+        padding: 32px 16px 8px;
+
+        .item-inner {
+            padding-right: 0px !important;
+        }
+    }
+
+    .input-container {
+        background-color: initial;
+        border-width: 0px !important;
+
+        ion-label {
+            margin: 0 !important;
+        }
+
+        ion-input {
+            height: 45px;
+        }
+    }
+
+    .btn {
+        margin-top: 18px;
+    }
+
+    .form-item {
+        background: #fff;
+    }
+
+    .icon-label,
+    .show-pass {
+        background: #fff;
+        color: #868686;
+        margin: 0 !important;
+        height: 45px;
+        z-index: 15;
+    }
+
+    .icon-label {
+        padding: 13px !important;
+    }
+}

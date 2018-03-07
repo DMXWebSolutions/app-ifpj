@@ -1,8 +1,9 @@
-import { Injectable, Injector } from "@angular/core";
-import { Events } from "ionic-angular";
+import { Injectable, Injector }   from "@angular/core";
+import { FormGroup, FormControl } from "@angular/forms";
+import { Events }                 from "ionic-angular";
 
-import { ApiService } from "./api.service";
-import { AuthService } from "./auth.service";
+import { ApiService }         from "./api.service";
+import { AuthService }        from "./auth.service";
 import { NotificacaoService } from "./notificacao.service";
 
 @Injectable()
@@ -111,5 +112,19 @@ export class AlunoService extends ApiService {
             data => this.notiNewsNumber = data,
             err => alert('Erro ao obter o numero de notificacoes: ' + err.status)
         );
+    }
+
+    public getLoginControls(): any {
+        return new FormGroup({
+            codalun: new FormControl(),
+            Cpfresp: new FormControl(),
+        });
+    }
+
+    public getLoginFields(): any {
+        return [
+            { placeholder: 'Matricula',          controlName: 'codalun', type: 'text',     icon: 'person' },
+            { placeholder: 'CPF do responsável', controlName: 'Cpfresp', type: 'password', icon: 'lock' },
+        ];
     }
 }

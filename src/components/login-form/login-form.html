@@ -1,0 +1,57 @@
+<form
+  *ngIf="formGroup"
+  [formGroup]="formGroup"
+  (ngSubmit)="login(formGroup.value)"
+>
+  <ion-list
+    no-lines
+    class="form-login"
+  >
+    <ion-item
+      no-padding
+      margin-bottom
+      class="input-container"
+      *ngFor="let field of fields"
+    >
+      <label
+        item-left
+        class="icon-label"
+      >
+        <ion-icon [name]="field.icon"></ion-icon>
+      </label>
+      <ion-input
+        [formControlName]="field.controlName"
+        [type]="(field.type != 'password') ? field.type : (passwordVisible) ? 'text' : 'password'"
+        [placeholder]="field.placeholder"
+        class="form-item"
+      >
+      </ion-input>
+      <a
+        item-right
+        padding
+        no-margin
+        class="show-pass"
+        *ngIf="field.type == 'password'"
+        (click)="showPassword()"
+      >
+        <ion-icon name="eye"></ion-icon>
+      </a>
+    </ion-item>
+    <ion-item
+      text-center
+      no-padding
+      no-margin
+      class="input-container btn"
+    >
+      <button
+        type="submit"
+        ion-button
+        full
+        padding
+        color="secondary"
+      >
+        Entrar
+      </button>
+    </ion-item>
+  </ion-list>
+</form>

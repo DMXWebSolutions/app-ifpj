@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
+import { NgModule }            from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { IonicPageModule } from 'ionic-angular';
+import { IonicPageModule }     from 'ionic-angular';
 
+import { LoginPage }        from './login';
 import { ComponentsModule } from '../../components/components.module';
-import { LoginPage } from './login';
-import { DeviceService } from '../../providers/device.service';
+import { DeviceService }    from '../../providers/device.service';
+import { ProfessorService } from '../../providers/professor.service';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { DeviceService } from '../../providers/device.service';
     IonicPageModule.forChild(LoginPage),
   ],
   providers: [
-    DeviceService
+    DeviceService,
+    ProfessorService
   ],
 })
 export class LoginPageModule {}
