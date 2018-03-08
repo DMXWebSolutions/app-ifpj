@@ -1,5 +1,5 @@
 export const environment = {
-    API_URL: 'http://api.ifpj.com.br/api/v1',
+    API_URL: 'http://ifpj.apidmx.com.br/api/v1',
     onesignalId: '3ffc9cd8-b547-4303-b79d-01de7f9cd7ac',
     googleProjectNumber: '966622166083'
 };
