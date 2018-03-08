@@ -1,21 +1,30 @@
 import { Injectable, Injector } from '@angular/core';
-import { tokenNotExpired  } from 'angular2-jwt';
-import { OneSignal } from '@ionic-native/onesignal';
+import { Events }               from 'ionic-angular';
+import { tokenNotExpired  }     from 'angular2-jwt';
+import { OneSignal }            from '@ionic-native/onesignal';
+import { Observable }           from 'rxjs/Observable';
+import                               'rxjs/add/observable/of';
 
-import { ApiService } from './api.service';
-import { DeviceService } from './device.service';
-import { Observable } from 'rxjs/Observable';
+import { ApiService }           from './api.service';
+import { DeviceService }        from './device.service';
 
 @Injectable()
 export class AuthService extends ApiService {
   protected resourceName: string = '/auth';
+  private   userType: string;
   
   constructor(
     protected injector: Injector,
     private oneSignal: OneSignal,
-    private deviceService: DeviceService
+    private deviceService: DeviceService,
+    private events: Events
   ) {
-    super(injector)
+    super(injector);
+
+    this.events.subscribe('login', (user, userType) => {
+      this.userType = userType;
+      this.events.publish(`${userType}:login`, user);
+    });
   }
 
   public getToken(): string {
@@ -34,8 +43,8 @@ export class AuthService extends ApiService {
     return tokenNotExpired();
   }
 
-  public login(params): Observable<any> {
-    return this.http.post(this.apiRoot + this.resourceName, params)
+  public login(userType: string, params: any): Observable<any> {
+    return this.http.post(`${this.apiRoot}${this.resourceName}/${userType}`, params)
       .map(
         data => {
           this.setToken(data['token']);
@@ -45,6 +54,18 @@ export class AuthService extends ApiService {
   }
 
   public logout(): Observable<any> {
+    this.removeToken();
+
+    switch (this.userType) {
+      case 'aluno':
+        return this.updateOneSignalStatus()
+      case 'professor': 
+        return Observable.of(true);
+    }
+      
+  }
+
+  private updateOneSignalStatus(): Observable<any> {
     return Observable.fromPromise(this.oneSignal.getIds())
       .flatMap(oneSignal => {
         return this.deviceService.update({
@@ -52,13 +73,13 @@ export class AuthService extends ApiService {
           'active': false
         });
       })
-      .map(data => {
-        this.removeToken();
-        return data;
-      });
   }
 
   public me(): any {
     return this.http.get(`${this.apiRoot}/me`);
+  }
+
+  public getUserType(): string {
+    return this.userType;
   }
 }

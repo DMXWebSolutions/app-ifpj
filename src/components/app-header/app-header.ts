@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { AlunoService } from '../../providers/aluno.service';
+import { AuthService }  from '../../providers/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +10,11 @@ import { AlunoService } from '../../providers/aluno.service';
 export class AppHeaderComponent {
 
   constructor(
-    public alunoService: AlunoService,
+    public  alunoService: AlunoService,
+    private auth: AuthService
   ) {}
+
+  public shownotifications() {
+    return this.auth.getUserType() == 'aluno' ? true : false;
+  }
 }

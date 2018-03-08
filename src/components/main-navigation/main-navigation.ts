@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input }               from '@angular/core';
 import { App, LoadingController, Events } from 'ionic-angular';
-import { Camera, CameraOptions } from '@ionic-native/camera';
-import { storage } from 'firebase';
+import { Camera, CameraOptions }          from '@ionic-native/camera';
+import { storage }                        from 'firebase';
 
 import { AuthService } from '../../providers/auth.service';
 
@@ -25,13 +25,17 @@ export class MainNavigationComponent {
     private events: Events,
     private camera: Camera,
   ) {
+    this.initializeComponent();
+   }
+
+   private initializeComponent() {
     this.pages = [
       { icon: 'ios-home-outline',          title: 'Home',       name: 'home' },
       { icon: 'ios-create-outline',        title: 'Boletim',    name: 'boletim' },
       { icon: 'ios-folder-open-outline',   title: 'Comunicados',name: 'comunicados' },
     ];
 
-    if(this.auth.authenticated()) {
+    if(this.auth.authenticated() && this.auth.getUserType() == 'aluno') {
       this.auth.me().subscribe(
         user => {
           this.user = user;
@@ -41,7 +45,7 @@ export class MainNavigationComponent {
       );
     }
 
-    this.events.subscribe('user:logedin', (user, time) => {
+    this.events.subscribe('aluno:login', (user) => {
       this.user = user;
       this.selectPicture();
     });
@@ -78,39 +82,39 @@ export class MainNavigationComponent {
     );
    }
    
-    public async takePicture() {
-      try {
-        const options: CameraOptions = {
-          quality: 100,
-          sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-          destinationType: this.camera.DestinationType.DATA_URL,
-          encodingType: this.camera.EncodingType.JPEG,
-          mediaType: this.camera.MediaType.PICTURE,
-          saveToPhotoAlbum: false,
-          correctOrientation: true
-        };
-  
-        const result =  await this.camera.getPicture(options);
-        const image = `data:image/jpeg;base64,${result}`;
-        const imageName = `${this.user.codalun}`;
-        const pictures = storage().ref(`avatar/${imageName}`);
-
-        this.avatar = image;
-
-        pictures.putString(image, 'data_url');
-      } catch (e) {
-        console.log(e);
-      }
-   }
-
-   public async selectPicture() {
+  public async takePicture() {
     try {
+      const options: CameraOptions = {
+        quality: 100,
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE,
+        saveToPhotoAlbum: false,
+        correctOrientation: true
+      };
+
+      const result =  await this.camera.getPicture(options);
+      const image = `data:image/jpeg;base64,${result}`;
       const imageName = `${this.user.codalun}`;
-      const pictureRef = storage().ref(`avatar/${imageName}`);
-      const url = await pictureRef.getDownloadURL();
-      this.avatar = url;
-    } catch(e) {
+      const pictures = storage().ref(`avatar/${imageName}`);
+
+      this.avatar = image;
+
+      pictures.putString(image, 'data_url');
+    } catch (e) {
       console.log(e);
     }
-   }
+  }
+
+  public async selectPicture() {
+  try {
+    const imageName = `${this.user.codalun}`;
+    const pictureRef = storage().ref(`avatar/${imageName}`);
+    const url = await pictureRef.getDownloadURL();
+    this.avatar = url;
+  } catch(e) {
+    console.log(e);
+  }
+  }
 }

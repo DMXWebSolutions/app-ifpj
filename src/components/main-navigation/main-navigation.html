@@ -3,7 +3,7 @@
     <a (click)="takePicture()" class="navigation-avatar">
       <img [src]="avatar" alt="Avatar">
     </a>
-    <h3 text-center margin class="navigation-title">{{ user?.nome }}</h3>
+    <h3 text-center margin class="navigation-title">{{ user?.nome || 'Instituto Francisca Paula de Jesus' }}</h3>
   </ion-header>
   <ion-content>
     <ion-list class="nav-items">

@@ -18,6 +18,7 @@ import { DeviceService }     from '../../providers/device.service';
   templateUrl: 'login-form.html'
 })
 export class LoginFormComponent {
+  @Input('userType') userType:  string;
   @Input('controls') formGroup: FormGroup;
   @Input('fields')   fields:    Array<{
       placeholder: string,
@@ -54,22 +55,21 @@ export class LoginFormComponent {
     });
     this.loading.present();
 
-    this.studentLogin(params);
-  }
-
-  private studentLogin(params: any) {
-    this.auth.login(params).subscribe(
+    this.auth.login(this.userType, params).subscribe(
       user => this.successLoginCallBack(user),
       err => this.errorLoginCallback(),
     );
   }
 
   private successLoginCallBack(user: any) {
-    this.events.publish('user:logedin', user, Date.now());
+    this.events.publish('login', user, this.userType);
     this.nav.setRoot('home');
     this.menu.enable(true, 'main-navigation');
     this.menu.enable(true, 'notifications');
-    this.storeOneSignalId();
+
+    if (this.auth.getUserType() == 'aluno') {
+      this.storeOneSignalId();
+    }
   }
 
   private errorLoginCallback() {

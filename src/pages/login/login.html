@@ -9,8 +9,8 @@
   </div>
 
   <div class="form-container">
-    <login-form class="form" [ngClass]="{'active': activeTab == 'aluno'}" [controls]="alunoForm" [fields]="alunoFields"></login-form>
-    <login-form class="form" [ngClass]="{'active': activeTab == 'professor'}" [controls]="professorForm" [fields]="professorFields"></login-form>
+    <login-form class="form" userType="aluno"     [ngClass]="{'active': activeTab == 'aluno'}"     [controls]="alunoForm"     [fields]="alunoFields"></login-form>
+    <login-form class="form" userType="professor" [ngClass]="{'active': activeTab == 'professor'}" [controls]="professorForm" [fields]="professorFields"></login-form>
   </div>
     
 </ion-content>

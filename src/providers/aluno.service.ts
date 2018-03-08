@@ -22,13 +22,16 @@ export class AlunoService extends ApiService {
         injector: Injector
     ) {
         super(injector);
+        this.initializeService();
+    }
 
-        if(this.auth.authenticated()) {
+    private initializeService() {
+        if(this.auth.authenticated() && this.auth.getUserType() == 'aluno') {
             this.getNotiNewsNumber();
             this.initializeNotificacoes();
         }
         
-        this.events.subscribe('user:logedin', (user, time) => {
+        this.events.subscribe('aluno:login', (user) => {
             this.getNotiNewsNumber();
             this.initializeNotificacoes();
         });
