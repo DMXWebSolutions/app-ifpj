@@ -24,19 +24,21 @@ export class AvatarComponent {
   }
 
   private initializeComponent() {
-    if(this.auth.authenticated() && this.auth.getUserType() == 'aluno') {
+    if(this.auth.getUserType() == 'aluno') {
       this.auth.me().subscribe(
         user => {
           this.user = user;
-          this.selectPicture();       
+          this.selectPicture('aluno');       
         },
         err => alert('Erro ao obter o usuário logado - status ' + err.status)
       );
+    } else {
+      this.selectPicture('professor');;
     }
 
-    this.events.subscribe('aluno:login', (user) => {
+    this.events.subscribe('login', (user, userType) => {
       this.user = user;
-      this.selectPicture();
+      this.selectPicture(userType);
     });
   }
 
@@ -47,6 +49,10 @@ export class AvatarComponent {
     }
 
     return false;
+  }
+
+  private async selectPicture(userType: string) {
+    this.avatar = (userType == 'aluno') ? await this.getPicture() : 'assets/imgs/menu/noavatar.png';
   }
 
   private async takePicture() {
@@ -74,12 +80,12 @@ export class AvatarComponent {
     }
   }
 
-  public async selectPicture() {
+  private async getPicture(): Promise<string> {
     try {
-      const imageName = `${this.user.codalun}`;
-      const pictureRef = storage().ref(`avatar/${imageName}`);
-      const url = await pictureRef.getDownloadURL();
-      this.avatar = url;
+      const imageName   = `${this.user.codalun}`;
+      const pictureRef  = storage().ref(`avatar/${imageName}`);
+      const url: string = await pictureRef.getDownloadURL();
+      return url;
     } catch(e) {
       console.log(e);
     }

@@ -130,4 +130,12 @@ export class AlunoService extends ApiService {
             { placeholder: 'CPF do responsável', controlName: 'Cpfresp', type: 'password', icon: 'lock' },
         ];
     }
+
+    public getNavigationPages(): any {
+        return [
+            { icon: 'ios-home-outline',          title: 'Home',       name: 'home' },
+            { icon: 'ios-create-outline',        title: 'Boletim',    name: 'boletim' },
+            { icon: 'ios-folder-open-outline',   title: 'Comunicados',name: 'comunicados' },
+        ];
+    }
 }
