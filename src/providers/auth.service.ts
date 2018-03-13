@@ -54,15 +54,17 @@ export class AuthService extends ApiService {
   }
 
   public logout(): Observable<any> {
-    this.removeToken();
+    var result: Observable<any>;
 
     switch (this.userType) {
       case 'aluno':
-        return this.updateOneSignalStatus()
+        result = this.updateOneSignalStatus()
       case 'professor': 
-        return Observable.of(true);
+        result = Observable.of(true);
     }
-      
+
+    this.removeToken();
+    return result;
   }
 
   private updateOneSignalStatus(): Observable<any> {
