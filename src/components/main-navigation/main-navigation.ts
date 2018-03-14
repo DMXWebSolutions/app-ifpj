@@ -1,5 +1,5 @@
 import { Component, Input }               from '@angular/core';
-import { App, LoadingController, Events } from 'ionic-angular';
+import { App, LoadingController, Events, MenuController } from 'ionic-angular';
 
 import { AuthService }      from '../../providers/auth.service';
 import { AlunoService }     from '../../providers/aluno.service';
@@ -20,6 +20,7 @@ export class MainNavigationComponent {
   constructor(
     private appCtrl: App,
     private events: Events,
+    private menu: MenuController,
     private loadingCtrl: LoadingController,
     private professorService: ProfessorService,
     private alunoService: AlunoService,
@@ -39,28 +40,27 @@ export class MainNavigationComponent {
    private initializeAlunoResources() {
     this.pages = this.alunoService.getNavigationPages();
     this.auth.me().subscribe(
-      user => this.user = user,
+      user => {
+        this.user = user;
+        this.menu.enable(true, 'main-navigation');
+        this.menu.enable(true, 'notifications');
+      },
       err => alert('Erro ao obter o usuário logado - status ' + err.status)
     );
    }
 
    private initializeProfessorResources() {
     this.pages = this.professorService.getNavigationPages();
-    console.log(this.pages);
+    this.menu.enable(true, 'main-navigation');
    }
 
    private initializeUserResources() {
     switch(this.auth.getUserType()) {
       case 'aluno': 
-        console.log('aluno');
         this.initializeAlunoResources();
         break;
       case 'professor':
-        console.log('professor');
         this.initializeProfessorResources();
-        break;
-      default:
-        console.log('Ops! Something wrong.');
         break;
     }
    }
@@ -75,9 +75,6 @@ export class MainNavigationComponent {
           break;
         case 'professor':
           this.pages = this.professorService.getNavigationPages();
-          break;
-        default:
-          console.log('Ops!');
           break;
       }
     });

@@ -2,15 +2,5 @@
   <div class="logo-container">
     <img src="assets/imgs/logo.png" alt="Ciranda do Recreio">
   </div>
-
-  <div class="login-tabs">
-    <span (click)="showForm('aluno')"     class="tab" [ngClass]="{'active': activeTab == 'aluno'}"    >Aluno</span>
-    <span (click)="showForm('professor')" class="tab" [ngClass]="{'active': activeTab == 'professor'}">Professor</span>
-  </div>
-
-  <div class="form-container">
-    <login-form class="form" userType="aluno"     [ngClass]="{'active': activeTab == 'aluno'}"     [controls]="alunoForm"     [fields]="alunoFields"></login-form>
-    <login-form class="form" userType="professor" [ngClass]="{'active': activeTab == 'professor'}" [controls]="professorForm" [fields]="professorFields"></login-form>
-  </div>
-    
+  <login-form [controls]="controls" [fields]="fields"></login-form>    
 </ion-content>

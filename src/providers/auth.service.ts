@@ -23,7 +23,6 @@ export class AuthService extends ApiService {
 
     this.events.subscribe('login', (user, userType) => {
       this.userType = userType;
-      this.events.publish(`${userType}:login`, user);
     });
   }
 
@@ -43,8 +42,8 @@ export class AuthService extends ApiService {
     return tokenNotExpired();
   }
 
-  public login(userType: string, params: any): Observable<any> {
-    return this.http.post(`${this.apiRoot}${this.resourceName}/${userType}`, params)
+  public login(params: any): Observable<any> {
+    return this.http.post(`${this.apiRoot}${this.resourceName}`, params)
       .map(
         data => {
           this.setToken(data['token']);
@@ -78,7 +77,7 @@ export class AuthService extends ApiService {
   }
 
   public me(): any {
-    return this.http.get(`${this.apiRoot}/me`);
+    return this.http.get(`${this.apiRoot}${this.resourceName}/me`);
   }
 
   public getUserType(): string {

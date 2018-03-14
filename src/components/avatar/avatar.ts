@@ -82,7 +82,7 @@ export class AvatarComponent {
 
   private async getPicture(): Promise<string> {
     try {
-      const imageName   = `${this.user.codalun}`;
+      const imageName   = `${this.user.usuario}`;
       const pictureRef  = storage().ref(`avatar/${imageName}`);
       const url: string = await pictureRef.getDownloadURL();
       return url;

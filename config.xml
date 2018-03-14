@@ -3,7 +3,7 @@
     <name>IFPJ</name>
     <description>Instituto Francisca Paula</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content original-src="index.html" src="http://192.168.0.119:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -37,6 +37,7 @@
     <plugin name="cordova-plugin-camera" spec="^4.0.1" />
     <plugin name="cordova-plugin-filepath" spec="^1.1.0" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
+    <engine name="android" spec="~7.0.0" />
     <platform name="android">
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -59,5 +60,4 @@
     </platform>
     <allow-navigation href="http://192.168.0.119:8100" />
     <allow-navigation href="http://192.168.1.18:8100" />
-    <engine name="android" spec="7.0.0" />
 </widget>

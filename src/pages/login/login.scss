@@ -43,27 +43,5 @@ page-login {
             }
         }
     }
-
-    .form-container {
-        position: relative;
-        width: 100%;
-        min-height: 300px;
-
-        .form {
-            transition: all 600ms cubic-bezier(0.23, 1, 0.32, 1);
-            transform: rotateY(90deg);
-            width: 100%;
-            opacity: 0;
-            position: absolute;
-            left: 0;
-            top: 0;
-
-            &.active {
-                transition: all 600ms 450ms cubic-bezier(0.23, 1, 0.32, 1);
-                transform: rotateY(0deg);
-                opacity: 1;
-            }
-        }
-    }
 }
 

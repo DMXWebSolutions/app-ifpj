@@ -1,5 +1,4 @@
 import { Injectable, Injector }   from "@angular/core";
-import { FormGroup, FormControl } from "@angular/forms";
 import { Events }                 from "ionic-angular";
 
 import { ApiService }         from "./api.service";
@@ -31,9 +30,16 @@ export class AlunoService extends ApiService {
             this.initializeNotificacoes();
         }
         
-        this.events.subscribe('aluno:login', (user) => {
-            this.getNotiNewsNumber();
-            this.initializeNotificacoes();
+        this.events.subscribe('login', (user, userType) => {
+            switch(userType) {
+                case 'aluno':
+                    this.getNotiNewsNumber();
+                    this.initializeNotificacoes();
+                    break;
+                default:
+                    this.resetNotificacoes();
+                    break;
+            }
         });
 
         this.events.subscribe('notification:read', (notification) => {
@@ -95,6 +101,10 @@ export class AlunoService extends ApiService {
         return this.http.get(`${this.apiRoot}${this.resourceName}/notificacoes`, { params: params });
     }
 
+    private resetNotificacoes() {
+        this.notifications = [];
+    }
+
     private initializeNotificacoes() {
         this.getNotificacoes().subscribe(
             notificacoes => {
@@ -115,20 +125,6 @@ export class AlunoService extends ApiService {
             data => this.notiNewsNumber = data,
             err => alert('Erro ao obter o numero de notificacoes: ' + err.status)
         );
-    }
-
-    public getLoginControls(): any {
-        return new FormGroup({
-            codalun: new FormControl(),
-            Cpfresp: new FormControl(),
-        });
-    }
-
-    public getLoginFields(): any {
-        return [
-            { placeholder: 'Matricula',          controlName: 'codalun', type: 'text',     icon: 'person' },
-            { placeholder: 'CPF do responsável', controlName: 'Cpfresp', type: 'password', icon: 'lock' },
-        ];
     }
 
     public getNavigationPages(): any {

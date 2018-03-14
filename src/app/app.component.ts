@@ -1,21 +1,25 @@
-import { Component } from '@angular/core';
-import { CacheService } from 'ionic-cache';
+import { Component }     from '@angular/core';
+import { CacheService }  from 'ionic-cache';
 import { Platform, App } from 'ionic-angular';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen }  from '@ionic-native/splash-screen';
+import { StatusBar }     from '@ionic-native/status-bar';
 import { initializeApp } from 'firebase';
-import { FIREBASE_CONFIG, environment } from '../environments/environment';
+import {
+  FIREBASE_CONFIG,
+  environment
+}                         from '../environments/environment';
 
-import { AuthService } from '../providers/auth.service';
-import { OneSignal } from '@ionic-native/onesignal';
-import { AlunoService } from '../providers/aluno.service';
+import { AuthService }        from '../providers/auth.service';
+import { OneSignal }          from '@ionic-native/onesignal';
+import { AlunoService }       from '../providers/aluno.service';
 import { NotificacaoService } from '../providers/notificacao.service';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  public rootPage = (this.auth.authenticated()) ? 'home' : 'login';
+  public rootPage = 'login';
+
   constructor(
     private auth: AuthService,
     private cache: CacheService,
@@ -31,11 +35,22 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
       
-      
+      this.setRootPage();
       this.initializeCache();
       this.initializeOneSignal();
       this.initializeFirebase();
     });
+  }
+
+  private setRootPage() {
+    if (this.auth.authenticated()) {
+      this.auth.me().subscribe(
+        usuario => this.rootPage = 'home',
+        err => console.log('Erro ao obter os dados do usuário: ' + err.status)
+      );
+    } else {
+      this.rootPage = 'login';
+    }
   }
 
   private initializeFirebase() {
