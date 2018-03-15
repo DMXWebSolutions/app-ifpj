@@ -27,6 +27,14 @@ ion-toast {
     }
 }
 
+ion-navbar {
+    justify-content: flex-start !important;
+}
+
+.toolbar-content {
+    max-width: calc(100% - 88px) !important;
+}
+
 .bg-primary {
     background-color: color($colors, primary);
 }
