@@ -18,7 +18,7 @@ import { NotificacaoService } from '../providers/notificacao.service';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  public rootPage = 'login';
+  public rootPage;
 
   constructor(
     private auth: AuthService,
@@ -27,13 +27,12 @@ export class MyApp {
     private alunoService: AlunoService,
     private notificacaoService: NotificacaoService,
     private app: App,
+    private splashScreen: SplashScreen,
     platform: Platform,
     statusBar: StatusBar,
-    splashScreen: SplashScreen
   ) {
     platform.ready().then(() => {
       statusBar.styleDefault();
-      splashScreen.hide();
       
       this.setRootPage();
       this.initializeCache();
@@ -45,11 +44,15 @@ export class MyApp {
   private setRootPage() {
     if (this.auth.authenticated()) {
       this.auth.me().subscribe(
-        usuario => this.rootPage = 'home',
+        usuario => {
+          this.rootPage = 'home';
+          this.splashScreen.hide();
+        },
         err => console.log('Erro ao obter os dados do usuário: ' + err.status)
       );
     } else {
       this.rootPage = 'login';
+      this.splashScreen.hide();
     }
   }
 

@@ -25,9 +25,15 @@ export class AlunoService extends ApiService {
     }
 
     private initializeService() {
-        if(this.auth.authenticated() && this.auth.getUserType() == 'aluno') {
-            this.getNotiNewsNumber();
-            this.initializeNotificacoes();
+        if(this.auth.authenticated()) {
+            this.auth.me().subscribe(
+                usuario => {
+                    if (usuario.tipo == 'aluno') {
+                        this.getNotiNewsNumber();
+                        this.initializeNotificacoes();
+                    }
+                },
+            );            
         }
         
         this.events.subscribe('login', (user, userType) => {
@@ -101,7 +107,7 @@ export class AlunoService extends ApiService {
         return this.http.get(`${this.apiRoot}${this.resourceName}/notificacoes`, { params: params });
     }
 
-    private resetNotificacoes() {
+    public resetNotificacoes() {
         this.notifications = [];
     }
 

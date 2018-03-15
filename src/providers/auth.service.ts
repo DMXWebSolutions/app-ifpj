@@ -11,7 +11,7 @@ import { DeviceService }        from './device.service';
 @Injectable()
 export class AuthService extends ApiService {
   protected resourceName: string = '/auth';
-  private   userType: string;
+  public    userType: string;
   
   constructor(
     protected injector: Injector,

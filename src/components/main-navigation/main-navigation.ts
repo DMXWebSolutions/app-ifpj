@@ -39,14 +39,8 @@ export class MainNavigationComponent {
 
    private initializeAlunoResources() {
     this.pages = this.alunoService.getNavigationPages();
-    this.auth.me().subscribe(
-      user => {
-        this.user = user;
-        this.menu.enable(true, 'main-navigation');
-        this.menu.enable(true, 'notifications');
-      },
-      err => alert('Erro ao obter o usuário logado - status ' + err.status)
-    );
+    this.menu.enable(true, 'main-navigation');
+    this.menu.enable(true, 'notifications');
    }
 
    private initializeProfessorResources() {
@@ -55,14 +49,22 @@ export class MainNavigationComponent {
    }
 
    private initializeUserResources() {
-    switch(this.auth.getUserType()) {
-      case 'aluno': 
-        this.initializeAlunoResources();
-        break;
-      case 'professor':
-        this.initializeProfessorResources();
-        break;
-    }
+    this.auth.me().subscribe(
+      user => {
+        this.user = user;
+        this.auth.userType = user.tipo;
+
+        switch(user.tipo) {
+          case 'aluno': 
+            this.initializeAlunoResources();
+            break;
+          case 'professor':
+            this.initializeProfessorResources();
+            break;
+        }
+      },
+      err => alert('Erro ao obter o usuário logado - status ' + err.status)
+    );
    }
 
    private getUserResources() {
@@ -104,6 +106,7 @@ export class MainNavigationComponent {
 
     this.auth.logout().subscribe(
       data => {
+        this.alunoService.resetNotificacoes();
         this.appCtrl.getRootNavs()[0].setRoot('login');
         this.events.publish('user:logout', data);
       },

@@ -24,11 +24,11 @@ export class AvatarComponent {
   }
 
   private initializeComponent() {
-    if(this.auth.getUserType() == 'aluno') {
+    if(this.auth.authenticated()) {
       this.auth.me().subscribe(
         user => {
           this.user = user;
-          this.selectPicture('aluno');       
+          this.selectPicture(user.tipo);       
         },
         err => alert('Erro ao obter o usuário logado - status ' + err.status)
       );

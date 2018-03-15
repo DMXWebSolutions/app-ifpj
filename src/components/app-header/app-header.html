@@ -6,7 +6,7 @@
     <a class="logo-container">
       <img src="assets/imgs/logo.png" alt="Ciranda do Recreio">
     </a>
-    <button color="primary" ion-button menuToggle="right" right class="notifications" [ngClass]="{'invisible': auth.getUserType() != 'aluno'}" >
+    <button color="primary" ion-button menuToggle="right" right class="notifications" [ngClass]="{'invisible': !showNotifications()}" >
       <ion-icon name="notifications"></ion-icon>
       <ion-badge class="count">{{ alunoService.notiNewsNumber }}</ion-badge>
     </button>
