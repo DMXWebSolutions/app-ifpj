@@ -5,17 +5,11 @@
     <img src="assets/imgs/banner/2.png" alt="Baner">
     <ion-grid class="home-icons">
         <ion-row justify-content-center text-center>
-            <a ion-col col-xs-6 col col-sm-6 col-md-4 col-lg-4 class="home-icon" (click)="openPage('comunicados')">
+            <a ion-col col-xs-6 col col-sm-6 col-md-4 col-lg-4 class="home-icon" (click)="openPage(page.name)" [ngClass]="{'hide': page.name == 'home'}" *ngFor="let page of pages">
                 <div class="rounded-item">
-                    <ion-icon name="ios-folder-open-outline"></ion-icon>
+                    <ion-icon [name]="page.icon"></ion-icon>
                 </div>
-                <p class="text-white">Comunicados</p>
-            </a>
-            <a ion-col col-xs-6 col col-sm-6 col-md-4 col-lg-4 class="home-icon" (click)="openPage('boletim')">
-                <div class="rounded-item">
-                    <ion-icon name="ios-create-outline"></ion-icon>
-                </div>
-                <p class="text-white">Boletim</p>
+                <p class="text-white">{{ page.title  }}</p>
             </a>
         </ion-row>
     </ion-grid>
