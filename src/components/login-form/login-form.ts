@@ -12,6 +12,7 @@ import { CacheService }      from 'ionic-cache';
 
 import { AuthService }       from '../../providers/auth.service';
 import { DeviceService }     from '../../providers/device.service';
+import { Usuario } from '../../models/usuario.model';
 
 @Component({
   selector: 'login-form',
@@ -55,16 +56,16 @@ export class LoginFormComponent {
     this.loading.present();
 
     this.auth.login(params).subscribe(
-      user => this.successLoginCallBack(user),
+      usuario => this.successLoginCallBack(usuario),
       err => this.errorLoginCallback(),
     );
   }
 
-  private successLoginCallBack(user: any) {
-    this.events.publish('login', user, user.tipo);
+  private successLoginCallBack(usuario: Usuario) {
+    this.events.publish('login', usuario);
     this.nav.setRoot('home');
 
-    if (user.tipo == 'aluno') {
+    if (usuario.tipo == 'aluno') {
       this.storeOneSignalId();
       this.menu.enable(true, 'main-navigation');
       this.menu.enable(true, 'notifications');

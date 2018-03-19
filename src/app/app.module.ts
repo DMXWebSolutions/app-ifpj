@@ -7,10 +7,8 @@ import {
   IonicErrorHandler,
   IonicModule
 }                           from 'ionic-angular';
-import {
-  HttpClientModule,
-  HTTP_INTERCEPTORS
-}                           from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { JwtModule }        from '@auth0/angular-jwt';
 import { BrowserModule }    from '@angular/platform-browser';
 import { SplashScreen }     from '@ionic-native/splash-screen';
 import { StatusBar }        from '@ionic-native/status-bar';
@@ -21,10 +19,15 @@ import { Camera }           from '@ionic-native/camera';
 import { MyApp }            from './app.component';
 import { ComponentsModule } from '../components/components.module';
 import { AuthService }      from '../providers/auth.service';
-import { TokenInterceptor } from '../providers/token.interceptor';
 import { DeviceService }    from '../providers/device.service';
 import { AlunoService }     from '../providers/aluno.service';
 import { ProfessorService } from '../providers/professor.service';
+
+import { environment }      from '../environments/environment';
+
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
@@ -34,6 +37,12 @@ import { ProfessorService } from '../providers/professor.service';
     ComponentsModule,
     HttpClientModule,
     BrowserModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: [environment.API_DOMAIN]
+      }
+    }),
     CacheModule.forRoot(),
     IonicModule.forRoot(MyApp)
   ],
@@ -45,11 +54,6 @@ import { ProfessorService } from '../providers/professor.service';
     {
       provide: ErrorHandler,
       useClass: IonicErrorHandler
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
     },
     OneSignal,
     ProfessorService,

@@ -3,8 +3,6 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Events }                from 'ionic-angular';
 import { storage }               from 'firebase';
 
-import { AuthService }           from '../../providers/auth.service';
-
 @Component({
   selector: 'avatar',
   templateUrl: 'avatar.html'
@@ -18,27 +16,14 @@ export class AvatarComponent {
   constructor(
     private camera: Camera,
     private events: Events,
-    private auth: AuthService
   ) {
     this.initializeComponent();
   }
 
   private initializeComponent() {
-    if(this.auth.authenticated()) {
-      this.auth.me().subscribe(
-        user => {
-          this.user = user;
-          this.selectPicture(user.tipo);       
-        },
-        err => alert('Erro ao obter o usuário logado - status ' + err.status)
-      );
-    } else {
-      this.selectPicture('professor');;
-    }
-
-    this.events.subscribe('login', (user, userType) => {
+    this.events.subscribe('login', (user) => {
       this.user = user;
-      this.selectPicture(userType);
+      this.selectPicture(user.tipo);
     });
   }
 

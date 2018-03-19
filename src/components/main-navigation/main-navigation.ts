@@ -1,5 +1,5 @@
 import { Component, Input }               from '@angular/core';
-import { App, LoadingController, Events, MenuController } from 'ionic-angular';
+import { App, LoadingController, Events } from 'ionic-angular';
 
 import { AuthService }      from '../../providers/auth.service';
 import { AlunoService }     from '../../providers/aluno.service';
@@ -20,7 +20,6 @@ export class MainNavigationComponent {
   constructor(
     private appCtrl: App,
     private events: Events,
-    private menu: MenuController,
     private loadingCtrl: LoadingController,
     private professorService: ProfessorService,
     private alunoService: AlunoService,
@@ -30,48 +29,14 @@ export class MainNavigationComponent {
    }
 
    private initializeComponent() {
-    if (this.auth.authenticated()) {
-      this.initializeUserResources();
-    } else {
-      this.getUserResources();
-    }
-   }
-
-   private initializeAlunoResources() {
-    this.pages = this.alunoService.getNavigationPages();
-    this.menu.enable(true, 'main-navigation');
-    this.menu.enable(true, 'notifications');
-   }
-
-   private initializeProfessorResources() {
-    this.pages = this.professorService.getNavigationPages();
-    this.menu.enable(true, 'main-navigation');
-   }
-
-   private initializeUserResources() {
-    this.auth.me().subscribe(
-      user => {
-        this.user = user;
-        this.auth.userType = user.tipo;
-
-        switch(user.tipo) {
-          case 'aluno': 
-            this.initializeAlunoResources();
-            break;
-          case 'professor':
-            this.initializeProfessorResources();
-            break;
-        }
-      },
-      err => alert('Erro ao obter o usuário logado - status ' + err.status)
-    );
+    this.getUserResources();
    }
 
    private getUserResources() {
-    this.events.subscribe('login', (user, userType) => {
-      this.user = user;
+    this.events.subscribe('login', (usuario) => {
+      this.user = usuario;
 
-      switch(userType) {
+      switch(usuario.tipo) {
         case 'aluno':
           this.pages = this.alunoService.getNavigationPages();
           break;
@@ -106,12 +71,12 @@ export class MainNavigationComponent {
 
     this.auth.logout().subscribe(
       data => {
+        this.auth.removeToken();
         this.alunoService.resetNotificacoes();
         this.appCtrl.getRootNavs()[0].setRoot('login');
-        this.events.publish('user:logout', data);
       },
       err => {
-        console.log(err);
+        console.log('Erro ao efetuar o logout: ' + err.status);
         this.loading.dismiss();
       },
     );

@@ -2,4 +2,69 @@
 
 <ion-content>
   <h3 class="page-title">Enviar Comunicado</h3>
+
+  <form #formulario="ngForm" class="ui-g ui-fluid" (ngSubmit)="submit(formulario)">
+    <div class="ui-g-12 ui-md-12">
+        <label class="f-label" for="codalun">
+            Matrícula do aluno
+        </label>
+        <p-chips (onRemove)="resetWhenEmpty('matricula')" addOnBlur="true" [allowDuplicate]="false" [(ngModel)]="matricula" [disabled]="!!turma || !!segmento" name="matricula" placeholder="Matrícula"></p-chips>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+        <label class="f-label" for="codturm">
+            Turma
+        </label>
+        <p-multiSelect (onChange)="resetWhenEmpty('turma')" [options]="turmas" defaultLabel="Selecione" [disabled]="!!matricula || !!segmento" name="codturm" id="codturm" [(ngModel)]="turma" [style]="{'width':'100%'}" ></p-multiSelect>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+        <label class="f-label" for="segment">
+            Segmento
+        </label>
+        <p-multiSelect (onChange)="resetWhenEmpty('segmento')" [options]="segmentos" defaultLabel="Selecione" [disabled]="!!matricula || !!turma" name="segmento" id="segment" [(ngModel)]="segmento" [style]="{'width':'100%'}" ></p-multiSelect>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+        <label class="f-label" for="titulo">
+            Título do comunicado
+        </label>
+        <input pInputText [(ngModel)]="titulo" required name="titulo" style="width: 100%" id="titulo" placeholder="Título">
+    </div>
+    <div class="ui-g-12 ui-md-12">
+        <label class="f-label" for="conteudo">
+            Conteúdo do comunicado
+        </label>
+        <textarea pInputTextarea autoResize="autoResize" [(ngModel)]="conteudo" required maxlength="255" style="width: 100%" name="conteudo" id="conteudo" rows="5" placeholder="Conteúdo"></textarea>
+        <span class="input-helper">
+            {{ 255 - ((conteudo) ? conteudo.length : 0) }} caracteres restantes
+        </span>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+        <p-fileUpload
+                #uploader
+                (onSelect)="setFile($event)"
+                (onRemove)="removeFile()"
+                [showUploadButton]="false"
+                chooseLabel="Selecione"
+                cancelLabel="Limpar"
+                name="file"
+                accept="image/*,application/pdf" 
+                maxFileSize="1000000"
+                invalidFileSizeMessageSummary="Tamanha máximo excedido."
+                invalidFileSizeMessageDetail="O tamanho máximo permitido para o envio é de {0}"
+            >
+            </p-fileUpload>
+        <span class="input-helper">
+            <strong style="color: #F44336">*</strong> É permitido o envio somente de imagens, no tamanho máximo de até 1 MB.
+            <span class="question-icon" pTooltip="[ jpg, jpeg, png, bmp, gif ]" tooltipPosition="top">
+                <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+            </span>
+        </span>        
+    </div>
+    <input type="hidden" name="fileUrl" [(ngModel)]="fileUrl">
+    <div class="ui-g-12 ui-md-12">
+        <button pButton type="submit" label="Enviar" [disabled]="formulario.form.invalid" class="ui-button-primary">
+        </button>
+    </div>
+  </form>
+
+  <p-growl life="15000" baseZIndex="999"></p-growl>
 </ion-content>

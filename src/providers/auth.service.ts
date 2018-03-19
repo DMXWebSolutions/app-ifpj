@@ -1,29 +1,56 @@
 import { Injectable, Injector } from '@angular/core';
-import { Events }               from 'ionic-angular';
-import { tokenNotExpired  }     from 'angular2-jwt';
 import { OneSignal }            from '@ionic-native/onesignal';
+import { Events }               from 'ionic-angular';
+import { JwtHelperService }     from '@auth0/angular-jwt';
 import { Observable }           from 'rxjs/Observable';
 import                               'rxjs/add/observable/of';
 
 import { ApiService }           from './api.service';
 import { DeviceService }        from './device.service';
+import { Usuario }              from '../models/usuario.model';
 
 @Injectable()
 export class AuthService extends ApiService {
   protected resourceName: string = '/auth';
-  public    userType: string;
+  private   user: Usuario;
   
   constructor(
     protected injector: Injector,
     private oneSignal: OneSignal,
     private deviceService: DeviceService,
-    private events: Events
+    private events: Events,
+    private jwt: JwtHelperService
   ) {
     super(injector);
 
-    this.events.subscribe('login', (user, userType) => {
-      this.userType = userType;
+    this.initializeService();
+  }
+
+  private initializeService() {
+    this.user = this.getUserDefaultValues();
+
+    if (this.authenticated()) {
+      this.me().subscribe(
+        user => {
+          this.user = user;
+          this.events.publish('login', user)
+        },
+        err => console.log('Erro ao obter os dados do usuário logado: ' + err.status)
+      );
+    }
+
+    this.events.subscribe('login', (user) => {
+      this.user = user;
     });
+  }
+
+  private getUserDefaultValues() {
+    return {
+      id:      null,
+      nome:    null,
+      usuario: null,
+      tipo:    null
+    };
   }
 
   public getToken(): string {
@@ -39,7 +66,7 @@ export class AuthService extends ApiService {
   }
 
   public authenticated():boolean {
-    return tokenNotExpired();
+    return !this.jwt.isTokenExpired();
   }
 
   public login(params: any): Observable<any> {
@@ -52,17 +79,19 @@ export class AuthService extends ApiService {
       );
   }
 
-  public logout(): Observable<any> {
+  public logout(): Observable<any> {   
     var result: Observable<any>;
 
-    switch (this.userType) {
+    switch (this.user.tipo) {
       case 'aluno':
-        result = this.updateOneSignalStatus()
+        result = this.updateOneSignalStatus();
+        break;
       case 'professor': 
         result = Observable.of(true);
+        break;
     }
 
-    this.removeToken();
+    this.user = this.getUserDefaultValues();
     return result;
   }
 
@@ -76,11 +105,11 @@ export class AuthService extends ApiService {
       })
   }
 
-  public me(): any {
-    return this.http.get(`${this.apiRoot}${this.resourceName}/me`);
+  public me(): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.apiRoot}${this.resourceName}/me`);
   }
 
   public getUserType(): string {
-    return this.userType;
+    return (this.authenticated()) ? this.user.tipo : null;
   }
 }

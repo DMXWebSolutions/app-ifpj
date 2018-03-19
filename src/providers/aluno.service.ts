@@ -2,7 +2,6 @@ import { Injectable, Injector }   from "@angular/core";
 import { Events }                 from "ionic-angular";
 
 import { ApiService }         from "./api.service";
-import { AuthService }        from "./auth.service";
 import { NotificacaoService } from "./notificacao.service";
 
 @Injectable()
@@ -16,7 +15,6 @@ export class AlunoService extends ApiService {
 
     constructor(
         private events: Events,
-        private auth: AuthService,
         private notificacaoService: NotificacaoService,
         injector: Injector
     ) {
@@ -25,19 +23,8 @@ export class AlunoService extends ApiService {
     }
 
     private initializeService() {
-        if(this.auth.authenticated()) {
-            this.auth.me().subscribe(
-                usuario => {
-                    if (usuario.tipo == 'aluno') {
-                        this.getNotiNewsNumber();
-                        this.initializeNotificacoes();
-                    }
-                },
-            );            
-        }
-        
-        this.events.subscribe('login', (user, userType) => {
-            switch(userType) {
+        this.events.subscribe('login', (usuario) => {
+            switch(usuario.tipo) {
                 case 'aluno':
                     this.getNotiNewsNumber();
                     this.initializeNotificacoes();

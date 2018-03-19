@@ -33,8 +33,9 @@ export class MyApp {
   ) {
     platform.ready().then(() => {
       statusBar.styleDefault();
-      
+
       this.setRootPage();
+      this.splashScreen.hide();
       this.initializeCache();
       this.initializeOneSignal();
       this.initializeFirebase();
@@ -42,18 +43,7 @@ export class MyApp {
   }
 
   private setRootPage() {
-    if (this.auth.authenticated()) {
-      this.auth.me().subscribe(
-        usuario => {
-          this.rootPage = 'home';
-          this.splashScreen.hide();
-        },
-        err => console.log('Erro ao obter os dados do usuário: ' + err.status)
-      );
-    } else {
-      this.rootPage = 'login';
-      this.splashScreen.hide();
-    }
+    this.rootPage = (this.auth.authenticated()) ? 'home' : 'login';
   }
 
   private initializeFirebase() {

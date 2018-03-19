@@ -11,8 +11,4 @@ export class AppHeaderComponent {
   constructor(
     public  alunoService: AlunoService,
   ) {}
-
-  public showNotifications() {
-    return true;
-  }
 }
